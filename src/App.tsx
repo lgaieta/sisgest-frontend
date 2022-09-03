@@ -1,15 +1,19 @@
 import Sidebar from './layouts/Sidebar';
-import { Box, Typography } from '@mui/material';
-import { Routes, Route } from 'react-router-dom';
+import { Box } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SelectClient from './pages/SelectClient';
+import Main from './layouts/Main';
 
 function App() {
     return (
-        <Box>
-            <Sidebar />
-            <Routes>
-                <Route path='/' element={<div />} />
-            </Routes>
-        </Box>
+        <Router>
+            <Box>
+                <Sidebar />
+                <Routes>
+                    <Route path='/seleccionar-cliente' element={<SelectClient />} />
+                </Routes>
+            </Box>
+        </Router>
     );
 }
 

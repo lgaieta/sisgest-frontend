@@ -8,6 +8,7 @@ import {
     ListItemText,
 } from '@mui/material';
 import Icon from '@mui/material/Icon';
+import { Link } from 'react-router-dom';
 
 function Sidebar() {
     return (
@@ -23,16 +24,23 @@ function Sidebar() {
             }}
         >
             <Typography
-                component='p'
+                component={Link}
+                to='/'
                 variant='h5'
-                sx={{ fontWeight: '600', width: '100%', textAlign: 'center' }}
+                sx={{
+                    fontWeight: '500',
+                    width: '100%',
+                    textAlign: 'center',
+                    color: 'text.primary',
+                    textDecoration: 'none',
+                }}
             >
                 SisGest
             </Typography>
             <nav>
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton component='a' href='/empleados'>
+                        <ListItemButton component={Link} to='/empleados'>
                             <ListItemIcon>
                                 <Icon>people_filled</Icon>
                             </ListItemIcon>
