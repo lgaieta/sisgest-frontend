@@ -28,7 +28,14 @@ function SelectClient(props: SelectClientProps) {
                     </TableHead>
                     <TableBody>
                         {ClientExamples.map(client => (
-                            <TableRow onClick={() => setClient(client)} key={client}>
+                            <TableRow
+                                sx={{
+                                    cursor: 'pointer',
+                                    '&:hover': { bgcolor: '#F3F3F3' },
+                                }}
+                                onClick={() => setClient(client)}
+                                key={client}
+                            >
                                 <TableCell>{client}</TableCell>
                             </TableRow>
                         ))}
