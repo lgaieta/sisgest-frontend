@@ -7,18 +7,19 @@ import {
     ListItemIcon,
     ListItemText,
     Button,
-    Divider,
     Paper,
 } from '@mui/material';
 import Icon from '@mui/material/Icon';
+import { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 
 type SidebarProps = {
     client: string | null;
+    setClient: Dispatch<SetStateAction<string | null>>;
 };
 
 function Sidebar(props: SidebarProps) {
-    const { client } = props;
+    const { client, setClient } = props;
 
     if (client === null) return null;
 
@@ -48,7 +49,6 @@ function Sidebar(props: SidebarProps) {
             >
                 SisGest
             </Typography>
-            <Divider />
             <nav>
                 <List>
                     <ListItem disablePadding>
@@ -85,7 +85,9 @@ function Sidebar(props: SidebarProps) {
                 >
                     {client}
                 </Typography>
-                <Button color='secondary'>Elegir otro cliente</Button>
+                <Button color='secondary' onClick={() => setClient(null)}>
+                    Elegir otro cliente
+                </Button>
             </Paper>
         </Drawer>
     );

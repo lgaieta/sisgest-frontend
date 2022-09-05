@@ -3,16 +3,14 @@ import { Box } from '@mui/material';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import SelectClient from './pages/SelectClient';
 import Home from './pages/Home';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function App() {
     const [client, setClient] = useState<string | null>(null);
 
-    useEffect(() => console.log(client), [client]);
-
     return (
         <Box>
-            <Sidebar client={client} />
+            <Sidebar client={client} setClient={setClient} />
             <Routes>
                 <Route
                     path='/seleccionar-cliente'
