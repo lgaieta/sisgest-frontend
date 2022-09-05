@@ -46,6 +46,19 @@ function Sidebar(props: SidebarProps) {
             >
                 SisGest
             </Typography>
+            <Typography
+                sx={{
+                    fontWeight: '500',
+                    width: 'calc(100% - 2rem)',
+                    marginInline: 'auto',
+                    textAlign: 'center',
+                    color: 'text.secondary',
+                }}
+                component='p'
+                variant='subtitle1'
+            >
+                Cliente: {client}
+            </Typography>
             <nav>
                 <List>
                     <ListItem disablePadding>
