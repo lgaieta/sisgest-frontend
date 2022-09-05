@@ -20,7 +20,7 @@ function SelectClient(props: SelectClientProps) {
     const { setClient } = props;
 
     return (
-        <Main title='Seleccione un cliente' fullWidth>
+        <Main title='Seleccione un cliente - SisGest' fullWidth>
             <TableContainer component={Paper} variant='outlined'>
                 <Table>
                     <TableHead>
