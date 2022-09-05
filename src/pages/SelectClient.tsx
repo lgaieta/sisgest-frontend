@@ -7,13 +7,20 @@ import {
     TableContainer,
     TableHead,
 } from '@mui/material';
+import { Dispatch, SetStateAction } from 'react';
 import Main from '../layouts/Main';
 
 const ClientExamples = ['Intel', 'CRSSCH', 'Aieta Consulting'];
 
-function SelectClient() {
+type SelectClientProps = {
+    setClient: Dispatch<SetStateAction<string | null>>;
+};
+
+function SelectClient(props: SelectClientProps) {
+    const { setClient } = props;
+
     return (
-        <Main title='Seleccione un cliente'>
+        <Main title='Seleccione un cliente' fullWidth>
             <TableContainer component={Paper} variant='outlined'>
                 <Table>
                     <TableHead>
@@ -21,7 +28,7 @@ function SelectClient() {
                     </TableHead>
                     <TableBody>
                         {ClientExamples.map(client => (
-                            <TableRow key={client}>
+                            <TableRow onClick={() => setClient(client)} key={client}>
                                 <TableCell>{client}</TableCell>
                             </TableRow>
                         ))}

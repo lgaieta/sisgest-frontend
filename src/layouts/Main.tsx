@@ -3,16 +3,19 @@ import { ReactNode } from 'react';
 
 type MainProps = {
     title: string;
+    fullWidth?: boolean;
     children: ReactNode;
 };
 
 function Main(props: MainProps) {
+    const { fullWidth = false } = props;
+
     return (
         <Box
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                paddingLeft: '13rem',
+                paddingLeft: fullWidth ? '0' : '13rem',
                 width: '100%',
                 boxSizing: 'border-box',
             }}

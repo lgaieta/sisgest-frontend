@@ -1,20 +1,41 @@
 import Sidebar from './layouts/Sidebar';
 import { Box } from '@mui/material';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import SelectClient from './pages/SelectClient';
 import Home from './pages/Home';
+import { useState, useEffect } from 'react';
 
 function App() {
+    const [client, setClient] = useState<string | null>(null);
+
+    useEffect(() => console.log(client), [client]);
+
     return (
-        <Router>
-            <Box>
-                <Sidebar />
-                <Routes>
-                    <Route path='/seleccionar-cliente' element={<SelectClient />} />
-                    <Route path='/' element={<Home />} />
-                </Routes>
-            </Box>
-        </Router>
+        <Box>
+            <Sidebar client={client} />
+            <Routes>
+                <Route
+                    path='/seleccionar-cliente'
+                    element={
+                        client !== null ? (
+                            <Navigate replace to='/' />
+                        ) : (
+                            <SelectClient setClient={setClient} />
+                        )
+                    }
+                />
+                <Route
+                    path='/'
+                    element={
+                        client === null ? (
+                            <Navigate replace to='/seleccionar-cliente' />
+                        ) : (
+                            <Home />
+                        )
+                    }
+                />
+            </Routes>
+        </Box>
     );
 }
 

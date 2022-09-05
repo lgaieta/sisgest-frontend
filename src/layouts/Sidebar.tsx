@@ -6,11 +6,20 @@ import {
     ListItemButton,
     ListItemIcon,
     ListItemText,
+    Button,
 } from '@mui/material';
 import Icon from '@mui/material/Icon';
 import { Link } from 'react-router-dom';
 
-function Sidebar() {
+type SidebarProps = {
+    client: string | null;
+};
+
+function Sidebar(props: SidebarProps) {
+    const { client } = props;
+
+    if (client === null) return null;
+
     return (
         <Drawer
             variant='permanent'
