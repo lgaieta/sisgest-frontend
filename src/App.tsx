@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import SelectClient from './pages/SelectClient';
 import Home from './pages/Home';
 import { useState } from 'react';
+import EmpleadosPage from './pages/empleados.page';
 
 function App() {
     const [client, setClient] = useState<string | null>(null);
@@ -29,6 +30,16 @@ function App() {
                             <Navigate replace to='/seleccionar-cliente' />
                         ) : (
                             <Home />
+                        )
+                    }
+                />
+                <Route
+                    path='/empleados'
+                    element={
+                        client === null ? (
+                            <Navigate replace to='/seleccionar-cliente' />
+                        ) : (
+                            <EmpleadosPage />
                         )
                     }
                 />
