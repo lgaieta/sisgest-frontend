@@ -1,4 +1,5 @@
 import {
+    Button,
     Paper,
     Table,
     TableBody,
@@ -11,7 +12,10 @@ import Main from '../layouts/Main';
 
 function EmpleadosPage() {
     return (
-        <Main title='Empleados'>
+        <Main
+            title='Empleados'
+            headerContent={() => <Button variant='outlined'>Crear Empleado</Button>}
+        >
             <TableContainer component={Paper} variant='outlined'>
                 <Table>
                     <TableHead>

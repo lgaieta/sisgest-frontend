@@ -5,6 +5,7 @@ type MainProps = {
     title: string;
     fullWidth?: boolean;
     children: ReactNode;
+    headerContent?: () => ReactNode;
 };
 
 function Main(props: MainProps) {
@@ -31,10 +32,15 @@ function Main(props: MainProps) {
                 position='sticky'
                 variant='outlined'
             >
-                <Toolbar>
+                <Toolbar
+                    sx={{
+                        justifyContent: 'space-between',
+                    }}
+                >
                     <Typography variant='h4' component='h1' sx={{ fontWeight: '500' }}>
                         {props.title}
                     </Typography>
+                    {props.headerContent && props.headerContent()}
                 </Toolbar>
             </AppBar>
             <Box sx={{ width: '100%', padding: '1.5rem' }}>{props.children}</Box>
