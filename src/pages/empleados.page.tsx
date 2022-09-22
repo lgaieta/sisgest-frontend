@@ -8,9 +8,12 @@ import {
     TableHead,
     TableRow,
 } from '@mui/material';
+import useLoadEmployees from '../hooks/useLoadEmployees';
 import Main from '../layouts/Main';
 
 function EmpleadosPage() {
+    const { employeesList, error, isLoading } = useLoadEmployees();
+
     return (
         <Main
             title='Empleados'
@@ -25,18 +28,13 @@ function EmpleadosPage() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow>
-                            <TableCell>Luciano Gabriel</TableCell>
-                            <TableCell>Aieta</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Luciano Gabriel</TableCell>
-                            <TableCell>Aieta</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Luciano Gabriel</TableCell>
-                            <TableCell>Aieta</TableCell>
-                        </TableRow>
+                        {employeesList &&
+                            employeesList.map(employee => (
+                                <TableRow key={employee.id}>
+                                    <TableCell>{employee.names}</TableCell>
+                                    <TableCell>{employee.surnames}</TableCell>
+                                </TableRow>
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>
