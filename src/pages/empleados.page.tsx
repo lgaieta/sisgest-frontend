@@ -9,6 +9,7 @@ import {
     TableContainer,
     TableHead,
     TableRow,
+    Typography,
 } from '@mui/material';
 import useLoadEmployees from '../hooks/useLoadEmployees';
 import Main from '../layouts/Main';
@@ -33,6 +34,11 @@ function EmpleadosPage() {
                 >
                     <CircularProgress />
                 </Box>
+            )}
+            {error && (
+                <Typography color='error' variant='subtitle1'>
+                    Ha ocurrido un error. Por favor, recargue la página.
+                </Typography>
             )}
             {employeesList && (
                 <TableContainer component={Paper} variant='outlined'>
