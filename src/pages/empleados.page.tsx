@@ -1,5 +1,7 @@
 import {
+    Box,
     Button,
+    CircularProgress,
     Paper,
     Table,
     TableBody,
@@ -19,25 +21,39 @@ function EmpleadosPage() {
             title='Empleados'
             headerContent={() => <Button variant='outlined'>Crear Empleado</Button>}
         >
-            <TableContainer component={Paper} variant='outlined'>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Nombres</TableCell>
-                            <TableCell>Apellidos</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {employeesList &&
-                            employeesList.map(employee => (
+            {isLoading && (
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        minHeight: '8rem',
+                        marginTop: '-1.5rem',
+                    }}
+                >
+                    <CircularProgress />
+                </Box>
+            )}
+            {employeesList && (
+                <TableContainer component={Paper} variant='outlined'>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Nombres</TableCell>
+                                <TableCell>Apellidos</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {employeesList.map(employee => (
                                 <TableRow key={employee.id}>
                                     <TableCell>{employee.names}</TableCell>
                                     <TableCell>{employee.surnames}</TableCell>
                                 </TableRow>
                             ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            )}
         </Main>
     );
 }

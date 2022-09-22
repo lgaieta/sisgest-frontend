@@ -11,13 +11,13 @@ type UseLoadEmployeesReturn = {
 
 const useLoadEmployees = (): UseLoadEmployeesReturn => {
     const [error, setError] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [employeesList, setEmployeesList] = useState<Employee[] | null>(null);
 
     const fetchLogic = async () => {
         try {
-            setError(false);
             setIsLoading(true);
+            setError(false);
             const fetchedEmployees = await getEmployees();
             const adaptedEmployees = fetchedEmployees.map(employee =>
                 adaptEmployee(employee)
