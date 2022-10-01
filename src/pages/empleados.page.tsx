@@ -2,6 +2,7 @@ import {
     Box,
     Button,
     CircularProgress,
+    IconButton,
     Paper,
     Table,
     TableBody,
@@ -15,6 +16,7 @@ import useLoadEmployees from '../hooks/useLoadEmployees';
 import Main from '../layouts/Main';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Employee from '../entities/Employee.entity';
+import Tooltip from '@mui/material/Tooltip';
 
 function EmpleadosPage() {
     const { employeesList, error, isLoading, executeLogic } = useLoadEmployees();
@@ -64,11 +66,13 @@ function EmpleadosPage() {
                                     <TableCell>{employee.names}</TableCell>
                                     <TableCell>{employee.surnames}</TableCell>
                                     <TableCell>
-                                        <DeleteIcon
-                                            onClick={() => {
-                                                deleteEmployee(employee.id);
-                                            }}
-                                        />
+                                        <Tooltip title='Borrar'>
+                                            <DeleteIcon
+                                                onClick={() => {
+                                                    deleteEmployee(employee.id);
+                                                }}
+                                            />
+                                        </Tooltip>
                                     </TableCell>
                                 </TableRow>
                             ))}
