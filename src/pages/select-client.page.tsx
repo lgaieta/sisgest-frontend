@@ -24,7 +24,7 @@ function SelectClient(props: SelectClientProps) {
             <TableContainer component={Paper} variant='outlined'>
                 <Table>
                     <TableHead>
-                        <TableCell>Nombre</TableCell>
+                        <TableCell>Empresa</TableCell>
                     </TableHead>
                     <TableBody>
                         {ClientExamples.map(client => (

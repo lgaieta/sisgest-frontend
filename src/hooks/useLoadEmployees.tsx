@@ -7,6 +7,7 @@ type UseLoadEmployeesReturn = {
     error: boolean;
     isLoading: boolean;
     employeesList: Employee[] | null;
+    executeLogic: (options: { showLoad?: boolean }) => Promise<void>;
 };
 
 const useLoadEmployees = (): UseLoadEmployeesReturn => {
@@ -14,9 +15,11 @@ const useLoadEmployees = (): UseLoadEmployeesReturn => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [employeesList, setEmployeesList] = useState<Employee[] | null>(null);
 
-    const fetchLogic = async () => {
+    const fetchLogic = async (options: { showLoad?: boolean }) => {
+        const { showLoad = true } = options;
+
         try {
-            setIsLoading(true);
+            if (showLoad) setIsLoading(true);
             setError(false);
             const fetchedEmployees = await getEmployees();
             const adaptedEmployees = fetchedEmployees.map(employee =>
@@ -31,13 +34,14 @@ const useLoadEmployees = (): UseLoadEmployeesReturn => {
     };
 
     useEffect(() => {
-        fetchLogic();
+        fetchLogic({});
     }, []);
 
     return {
         error,
         isLoading,
         employeesList,
+        executeLogic: fetchLogic,
     };
 };
 

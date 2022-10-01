@@ -13,9 +13,17 @@ import {
 } from '@mui/material';
 import useLoadEmployees from '../hooks/useLoadEmployees';
 import Main from '../layouts/Main';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Employee from '../entities/Employee.entity';
 
 function EmpleadosPage() {
-    const { employeesList, error, isLoading } = useLoadEmployees();
+    const { employeesList, error, isLoading, executeLogic } = useLoadEmployees();
+    const deleteEmployee = async (id: Employee['id']) => {
+        await fetch('http://localhost:7000/empleado/' + id, {
+            method: 'DELETE',
+        });
+        executeLogic({ showLoad: false });
+    };
 
     return (
         <Main
@@ -47,6 +55,7 @@ function EmpleadosPage() {
                             <TableRow>
                                 <TableCell>Nombres</TableCell>
                                 <TableCell>Apellidos</TableCell>
+                                <TableCell>Acciones</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -54,6 +63,13 @@ function EmpleadosPage() {
                                 <TableRow key={employee.id}>
                                     <TableCell>{employee.names}</TableCell>
                                     <TableCell>{employee.surnames}</TableCell>
+                                    <TableCell>
+                                        <DeleteIcon
+                                            onClick={() => {
+                                                deleteEmployee(employee.id);
+                                            }}
+                                        />
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
