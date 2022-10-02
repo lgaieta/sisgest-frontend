@@ -3,7 +3,7 @@ import adaptEmployee from '../adapters/adaptEmployee';
 import Employee from '../entities/Employee.entity';
 import { getEmployees } from '../services/getEmployees';
 
-type UseLoadEmployeesReturn = {
+export type UseLoadEmployeesReturn = {
     error: boolean;
     isLoading: boolean;
     employeesList: Employee[] | null;

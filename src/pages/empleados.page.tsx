@@ -20,18 +20,15 @@ import Employee from '../entities/Employee.entity';
 import Tooltip from '@mui/material/Tooltip';
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
+import useDeleteEmployee from '../hooks/useDeleteEmployee';
 
 function EmpleadosPage() {
-    const [isEmployeeDeleted, setIsEmployeeDeleted] = useState<boolean>(false);
     const { employeesList, error, isLoading, executeLogic } = useLoadEmployees();
-    const deleteEmployee = async (id: Employee['id']) => {
-        await fetch('http://localhost:7000/empleado/' + id, {
-            method: 'DELETE',
-        });
-        executeLogic({ showLoad: false });
-        setIsEmployeeDeleted(true);
-        setTimeout(() => setIsEmployeeDeleted(false), 5000);
-    };
+    const { isEmployeeDeleted, deleteEmployee, setIsEmployeeDeleted } = useDeleteEmployee(
+        {
+            loadEmployees: executeLogic,
+        }
+    );
 
     return (
         <Main
