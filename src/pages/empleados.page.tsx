@@ -4,6 +4,7 @@ import {
     CircularProgress,
     IconButton,
     Paper,
+    Snackbar,
     Table,
     TableBody,
     TableCell,
@@ -17,14 +18,19 @@ import Main from '../layouts/Main';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Employee from '../entities/Employee.entity';
 import Tooltip from '@mui/material/Tooltip';
+import { useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
 
 function EmpleadosPage() {
+    const [isEmployeeDeleted, setIsEmployeeDeleted] = useState<boolean>(false);
     const { employeesList, error, isLoading, executeLogic } = useLoadEmployees();
     const deleteEmployee = async (id: Employee['id']) => {
         await fetch('http://localhost:7000/empleado/' + id, {
             method: 'DELETE',
         });
         executeLogic({ showLoad: false });
+        setIsEmployeeDeleted(true);
+        setTimeout(() => setIsEmployeeDeleted(false), 5000);
     };
 
     return (
@@ -80,6 +86,20 @@ function EmpleadosPage() {
                     </Table>
                 </TableContainer>
             )}
+            <Snackbar
+                open={isEmployeeDeleted}
+                message='Empleado borrado'
+                action={
+                    <IconButton
+                        size='small'
+                        aria-label='close'
+                        color='inherit'
+                        onClick={() => setIsEmployeeDeleted(false)}
+                    >
+                        <CloseIcon fontSize='small' />
+                    </IconButton>
+                }
+            />
         </Main>
     );
 }
