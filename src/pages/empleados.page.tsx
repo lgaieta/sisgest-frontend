@@ -16,11 +16,10 @@ import {
 import useLoadEmployees from '../hooks/useLoadEmployees';
 import Main from '../layouts/Main';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Employee from '../entities/Employee.entity';
 import Tooltip from '@mui/material/Tooltip';
-import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import useDeleteEmployee from '../hooks/useDeleteEmployee';
+import ReplayIcon from '@mui/icons-material/Replay';
 
 function EmpleadosPage() {
     const { employeesList, error, isLoading, executeLogic } = useLoadEmployees();
@@ -33,7 +32,16 @@ function EmpleadosPage() {
     return (
         <Main
             title='Empleados'
-            headerContent={() => <Button variant='outlined'>Crear Empleado</Button>}
+            headerContent={() => (
+                <Box sx={{ display: 'flex', gap: '1rem' }}>
+                    <Tooltip title='Recargar empleados'>
+                        <IconButton onClick={() => executeLogic({ showLoad: false })}>
+                            <ReplayIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Button variant='outlined'>Crear Empleado</Button>
+                </Box>
+            )}
         >
             {isLoading && (
                 <Box
