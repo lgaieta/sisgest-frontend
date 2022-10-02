@@ -92,6 +92,7 @@ function EmpleadosPage() {
                 </TableContainer>
             )}
             <Snackbar
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 open={isEmployeeDeleted}
                 message='Empleado borrado'
                 action={
