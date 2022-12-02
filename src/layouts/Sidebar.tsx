@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import Icon from '@mui/material/Icon';
 import { Dispatch, SetStateAction } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 type SidebarProps = {
     client: string | null;
@@ -36,7 +36,7 @@ function Sidebar(props: SidebarProps) {
         >
             <Typography
                 component={Link}
-                to='/'
+                href='/'
                 variant='h5'
                 sx={{
                     fontWeight: '500',
@@ -52,7 +52,7 @@ function Sidebar(props: SidebarProps) {
             <nav>
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton component={Link} to='/empleados'>
+                        <ListItemButton component={Link} href='/empleados'>
                             <ListItemIcon>
                                 <Icon>people_filled</Icon>
                             </ListItemIcon>

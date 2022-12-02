@@ -1,12 +1,21 @@
-import { CssBaseline } from '@mui/material';
+import { Box, CssBaseline } from '@mui/material';
 import { AppProps } from 'next/app';
-import { FC } from 'react';
+import { FC, SetStateAction } from 'react';
+import Sidebar from '../layouts/Sidebar';
 
 const CustomApp: FC<AppProps> = ({ Component, pageProps }) => {
     return (
         <>
             <CssBaseline />
-            <Component {...pageProps} />
+            <Box>
+                <Sidebar
+                    client={''}
+                    setClient={function (value: SetStateAction<string>): void {
+                        throw new Error('Function not implemented.');
+                    }}
+                />
+                <Component {...pageProps} />
+            </Box>
         </>
     );
 };
