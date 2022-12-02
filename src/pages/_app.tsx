@@ -1,19 +1,15 @@
 import { Box, CssBaseline } from '@mui/material';
 import { AppProps } from 'next/app';
-import { FC, SetStateAction } from 'react';
+import { FC, useState } from 'react';
 import Sidebar from '../layouts/Sidebar';
 
 const CustomApp: FC<AppProps> = ({ Component, pageProps }) => {
+    const [client, setClient] = useState<string | null>('Visma');
     return (
         <>
             <CssBaseline />
             <Box>
-                <Sidebar
-                    client={''}
-                    setClient={function (value: SetStateAction<string>): void {
-                        throw new Error('Function not implemented.');
-                    }}
-                />
+                <Sidebar client={client} setClient={setClient} />
                 <Component {...pageProps} />
             </Box>
         </>
