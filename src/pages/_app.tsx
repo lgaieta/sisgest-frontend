@@ -10,7 +10,7 @@ const CustomApp: FC<AppProps> = ({ Component, pageProps }) => {
             <CssBaseline />
             <Box>
                 <Sidebar client={client} setClient={setClient} />
-                <Component {...pageProps} />
+                <Component setClient={setClient} {...pageProps} />
             </Box>
         </>
     );
