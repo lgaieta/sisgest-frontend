@@ -1,11 +1,19 @@
 import { Box, CssBaseline } from '@mui/material';
+import { useRouter } from 'next/router';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import Sidebar from '../layouts/Sidebar';
 
 const CustomApp: FC<AppProps> = ({ Component, pageProps }) => {
-    const [client, setClient] = useState<string | null>('Visma');
+    const [client, setClient] = useState<string | null>(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!client && router.pathname !== '/seleccionar-cliente')
+            router.push('/seleccionar-cliente');
+    });
+
     return (
         <>
             <Head>
@@ -14,7 +22,9 @@ const CustomApp: FC<AppProps> = ({ Component, pageProps }) => {
             </Head>
             <CssBaseline />
             <Box>
-                <Sidebar client={client} setClient={setClient} />
+                {router.pathname !== '/seleccionar-cliente' ? (
+                    <Sidebar client={client} setClient={setClient} />
+                ) : null}
                 <Component setClient={setClient} {...pageProps} />
             </Box>
         </>

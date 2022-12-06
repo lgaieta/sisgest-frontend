@@ -7,6 +7,7 @@ import {
     TableContainer,
     TableHead,
 } from '@mui/material';
+import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 import Main from '../layouts/Main';
 
@@ -31,8 +32,11 @@ function SelectClient(props: SelectClientProps) {
                             <TableRow
                                 sx={{
                                     cursor: 'pointer',
+                                    textDecoration: 'none',
                                     '&:hover': { bgcolor: '#F3F3F3' },
                                 }}
+                                component={Link}
+                                href='/'
                                 onClick={() => setClient(client)}
                                 key={client}
                             >

@@ -85,7 +85,12 @@ function Sidebar(props: SidebarProps) {
                 >
                     {client}
                 </Typography>
-                <Button color='secondary' onClick={() => setClient(null)}>
+                <Button
+                    color='secondary'
+                    component={Link}
+                    href='/seleccionar-cliente'
+                    onClick={() => setClient(null)}
+                >
                     Elegir otro cliente
                 </Button>
             </Paper>
