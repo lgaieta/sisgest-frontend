@@ -21,8 +21,6 @@ type SidebarProps = {
 function Sidebar(props: SidebarProps) {
     const { client, setClient } = props;
 
-    if (client === null) return null;
-
     return (
         <Drawer
             variant='permanent'
@@ -89,7 +87,7 @@ function Sidebar(props: SidebarProps) {
                     color='secondary'
                     component={Link}
                     href='/seleccionar-cliente'
-                    onClick={() => setClient(null)}
+                    onClick={() => setClient('null')}
                 >
                     Elegir otro cliente
                 </Button>
