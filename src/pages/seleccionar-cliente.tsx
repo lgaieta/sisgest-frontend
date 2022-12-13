@@ -7,6 +7,7 @@ import {
     TableContainer,
     TableHead,
 } from '@mui/material';
+import Head from 'next/head';
 import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 import Main from '../layouts/Main';
@@ -21,32 +22,37 @@ function SelectClient(props: SelectClientProps) {
     const { setClient } = props;
 
     return (
-        <Main title='Seleccione un cliente - SisGest' fullWidth>
-            <TableContainer component={Paper} variant='outlined'>
-                <Table>
-                    <TableHead>
-                        <TableCell>Empresa</TableCell>
-                    </TableHead>
-                    <TableBody>
-                        {ClientExamples.map(client => (
-                            <TableRow
-                                sx={{
-                                    cursor: 'pointer',
-                                    textDecoration: 'none',
-                                    '&:hover': { bgcolor: '#F3F3F3' },
-                                }}
-                                component={Link}
-                                href='/'
-                                onClick={() => setClient(client)}
-                                key={client}
-                            >
-                                <TableCell>{client}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Main>
+        <>
+            <Head>
+                <title>Seleccionar cliente - SisGest</title>
+            </Head>
+            <Main title='Seleccione un cliente - SisGest' fullWidth>
+                <TableContainer component={Paper} variant='outlined'>
+                    <Table>
+                        <TableHead>
+                            <TableCell>Empresa</TableCell>
+                        </TableHead>
+                        <TableBody>
+                            {ClientExamples.map(client => (
+                                <TableRow
+                                    sx={{
+                                        cursor: 'pointer',
+                                        textDecoration: 'none',
+                                        '&:hover': { bgcolor: '#F3F3F3' },
+                                    }}
+                                    component={Link}
+                                    href='/'
+                                    onClick={() => setClient(client)}
+                                    key={client}
+                                >
+                                    <TableCell>{client}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Main>
+        </>
     );
 }
 
