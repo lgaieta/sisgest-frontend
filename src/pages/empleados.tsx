@@ -13,21 +13,19 @@ import {
     TableRow,
     Typography,
 } from '@mui/material';
-import useLoadEmployees from '../hooks/useLoadEmployees';
 import Main from '../layouts/Main';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
-import CloseIcon from '@mui/icons-material/Close';
-import useDeleteEmployee from '../hooks/useDeleteEmployee';
 import ReplayIcon from '@mui/icons-material/Replay';
+import { useQuery } from 'react-query';
+import adaptEmployee from '../adapters/adaptEmployee';
+import { getEmployees } from '../services/getEmployees';
+import useDeleteEmployee from '../hooks/useDeleteEmployee';
+import useLoadEmployees from '../hooks/useLoadEmployees';
 
 function EmpleadosPage() {
-    const { employeesList, error, isLoading, executeLogic } = useLoadEmployees();
-    const { isEmployeeDeleted, deleteEmployee, setIsEmployeeDeleted } = useDeleteEmployee(
-        {
-            loadEmployees: executeLogic,
-        }
-    );
+    const { data: employeesList, isLoading, isError, refetch } = useLoadEmployees();
+    const { mutate: deleteEmployee } = useDeleteEmployee();
 
     return (
         <Main
@@ -35,7 +33,7 @@ function EmpleadosPage() {
             headerContent={() => (
                 <Box sx={{ display: 'flex', gap: '1rem' }}>
                     <Tooltip title='Recargar empleados'>
-                        <IconButton onClick={() => executeLogic({ showLoad: false })}>
+                        <IconButton onClick={() => refetch()}>
                             <ReplayIcon />
                         </IconButton>
                     </Tooltip>
@@ -56,7 +54,7 @@ function EmpleadosPage() {
                     <CircularProgress />
                 </Box>
             )}
-            {error && (
+            {isError && (
                 <Typography color='error' variant='subtitle1'>
                     Ha ocurrido un error. Por favor, recargue la página.
                 </Typography>
@@ -80,7 +78,9 @@ function EmpleadosPage() {
                                         <Tooltip title='Borrar'>
                                             <DeleteIcon
                                                 onClick={() => {
-                                                    deleteEmployee(employee.id);
+                                                    deleteEmployee(employee.id, {
+                                                        onSuccess: () => refetch(),
+                                                    });
                                                 }}
                                             />
                                         </Tooltip>
@@ -91,7 +91,7 @@ function EmpleadosPage() {
                     </Table>
                 </TableContainer>
             )}
-            <Snackbar
+            {/* <Snackbar
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 open={isEmployeeDeleted}
                 message='Empleado borrado'
@@ -105,7 +105,7 @@ function EmpleadosPage() {
                         <CloseIcon fontSize='small' />
                     </IconButton>
                 }
-            />
+            /> */}
         </Main>
     );
 }
