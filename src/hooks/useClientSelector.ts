@@ -1,17 +1,19 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useLocalStorageState } from './useLocalStorageState';
 
 export const useClientSelector = () => {
-    const [client, setClient] = useState<string>('');
+    const [client, setClient] = useLocalStorageState<string>({
+        key: 'client',
+        fallbackValue: '',
+        getItemCallback: String,
+        setItemCallback: x => x,
+    });
     const router = useRouter();
 
     useEffect(() => {
-        setClient(String(localStorage.getItem('client')));
-    }, []);
-
-    useEffect(() => {
-        if (client !== '') localStorage.setItem('client', client);
-        if (client === 'null') router.push('/seleccionar-cliente');
+        if (!localStorage.getItem('client') && router.pathname !== '/seleccionar-cliente')
+            router.push('/seleccionar-cliente');
     }, [client]);
 
     return [client, setClient] as const;
