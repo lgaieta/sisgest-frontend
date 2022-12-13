@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 import Main from '../layouts/Main';
 
@@ -20,6 +21,7 @@ type SelectClientProps = {
 
 function SelectClient(props: SelectClientProps) {
     const { setClient } = props;
+    const router = useRouter();
 
     return (
         <>
@@ -30,7 +32,9 @@ function SelectClient(props: SelectClientProps) {
                 <TableContainer component={Paper} variant='outlined'>
                     <Table>
                         <TableHead>
-                            <TableCell>Empresa</TableCell>
+                            <TableRow>
+                                <TableCell>Empresa</TableCell>
+                            </TableRow>
                         </TableHead>
                         <TableBody>
                             {ClientExamples.map(client => (
@@ -40,9 +44,10 @@ function SelectClient(props: SelectClientProps) {
                                         textDecoration: 'none',
                                         '&:hover': { bgcolor: '#F3F3F3' },
                                     }}
-                                    component={Link}
-                                    href='/'
-                                    onClick={() => setClient(client)}
+                                    onClick={() => {
+                                        setClient(client);
+                                        router.push('/');
+                                    }}
                                     key={client}
                                 >
                                     <TableCell>{client}</TableCell>
