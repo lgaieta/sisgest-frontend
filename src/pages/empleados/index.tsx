@@ -8,7 +8,7 @@ import { lazy, Suspense, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
 
-const EmployeesTable = lazy(() => import('../../components/EmployeesTable'));
+const EmployeesTable = lazy(() => import('../../layouts/employees/EmployeesTable'));
 const ErrorMessage = lazy(() => import('../../components/ErrorMessage'));
 const Snackbar = lazy(() => import('@mui/material/Snackbar'));
 
