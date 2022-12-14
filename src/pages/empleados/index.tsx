@@ -1,15 +1,15 @@
 import { Box, Button, CircularProgress, IconButton, Typography } from '@mui/material';
-import Main from '../layouts/Main';
+import Main from '../../layouts/Main';
 import Tooltip from '@mui/material/Tooltip';
 import ReplayIcon from '@mui/icons-material/Replay';
-import useDeleteEmployee from '../hooks/useDeleteEmployee';
-import useLoadEmployees from '../hooks/useLoadEmployees';
+import useDeleteEmployee from '../../hooks/useDeleteEmployee';
+import useLoadEmployees from '../../hooks/useLoadEmployees';
 import { lazy, Suspense, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
 
-const EmployeesTable = lazy(() => import('../components/EmployeesTable'));
-const ErrorMessage = lazy(() => import('../components/ErrorMessage'));
+const EmployeesTable = lazy(() => import('../../components/EmployeesTable'));
+const ErrorMessage = lazy(() => import('../../components/ErrorMessage'));
 const Snackbar = lazy(() => import('@mui/material/Snackbar'));
 
 const LoadingSpinner = () => {
@@ -43,7 +43,7 @@ function EmpleadosPage() {
                             <ReplayIcon />
                         </IconButton>
                     </Tooltip>
-                    <Button variant='outlined' component={Link} href='/crear-empleado'>
+                    <Button variant='outlined' component={Link} href='/empleados/crear'>
                         Crear Empleado
                     </Button>
                 </Box>
