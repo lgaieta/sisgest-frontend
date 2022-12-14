@@ -50,7 +50,15 @@ function Main(props: MainProps) {
                     </Toolbar>
                 </AppBar>
             )}
-            <Box sx={{ width: '100%', padding: '1.5rem' }}>{props.children}</Box>
+            <Box
+                sx={{
+                    width: '100',
+                    minHeight: '100vh',
+                    padding: '1.5rem',
+                }}
+            >
+                {props.children}
+            </Box>
         </Box>
     );
 }
