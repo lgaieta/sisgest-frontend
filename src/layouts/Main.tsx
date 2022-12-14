@@ -6,10 +6,11 @@ type MainProps = {
     fullWidth?: boolean;
     children: ReactNode;
     headerContent?: () => ReactNode;
+    hideHeader?: boolean;
 };
 
 function Main(props: MainProps) {
-    const { fullWidth = false } = props;
+    const { fullWidth = false, hideHeader = false } = props;
 
     return (
         <Box
@@ -21,28 +22,34 @@ function Main(props: MainProps) {
                 boxSizing: 'border-box',
             }}
         >
-            <AppBar
-                component='header'
-                sx={{
-                    bgcolor: 'background.paper',
-                    color: 'text.primary',
-                    borderLeft: 'none',
-                }}
-                elevation={0}
-                position='sticky'
-                variant='outlined'
-            >
-                <Toolbar
+            {hideHeader === true ? null : (
+                <AppBar
+                    component='header'
                     sx={{
-                        justifyContent: 'space-between',
+                        bgcolor: 'background.paper',
+                        color: 'text.primary',
+                        borderLeft: 'none',
                     }}
+                    elevation={0}
+                    position='sticky'
+                    variant='outlined'
                 >
-                    <Typography variant='h4' component='h1' sx={{ fontWeight: '500' }}>
-                        {props.title}
-                    </Typography>
-                    {props.headerContent && props.headerContent()}
-                </Toolbar>
-            </AppBar>
+                    <Toolbar
+                        sx={{
+                            justifyContent: 'space-between',
+                        }}
+                    >
+                        <Typography
+                            variant='h4'
+                            component='h1'
+                            sx={{ fontWeight: '500' }}
+                        >
+                            {props.title}
+                        </Typography>
+                        {props.headerContent && props.headerContent()}
+                    </Toolbar>
+                </AppBar>
+            )}
             <Box sx={{ width: '100%', padding: '1.5rem' }}>{props.children}</Box>
         </Box>
     );
