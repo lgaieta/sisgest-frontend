@@ -11,6 +11,22 @@ const EmployeesTable = lazy(() => import('../components/EmployeesTable'));
 const ErrorMessage = lazy(() => import('../components/ErrorMessage'));
 const Snackbar = lazy(() => import('@mui/material/Snackbar'));
 
+const LoadingSpinner = () => {
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: '8rem',
+                marginTop: '-1.5rem',
+            }}
+        >
+            <CircularProgress />
+        </Box>
+    );
+};
+
 function EmpleadosPage() {
     const { data: employeesList, isLoading, isError, refetch } = useLoadEmployees();
     const { mutate: deleteEmployee } = useDeleteEmployee();
@@ -31,33 +47,9 @@ function EmpleadosPage() {
             )}
         >
             {isLoading ? (
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        minHeight: '8rem',
-                        marginTop: '-1.5rem',
-                    }}
-                >
-                    <CircularProgress />
-                </Box>
+                <LoadingSpinner />
             ) : (
-                <Suspense
-                    fallback={
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                minHeight: '8rem',
-                                marginTop: '-1.5rem',
-                            }}
-                        >
-                            <CircularProgress />
-                        </Box>
-                    }
-                >
+                <Suspense fallback={<LoadingSpinner />}>
                     {isError && (
                         <ErrorMessage>
                             Ha ocurrido un error. Por favor, recargue la página (tecla
