@@ -1,7 +1,7 @@
 import { Box, TextField, Button, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import Employee from '../../entities/Employee.entity';
-import CreateEmployeeLayout from '../../layouts/empleados/CreateEmployeeLayout';
+import CreateEmployeeLayout from '../../layouts/employees/CreateEmployeeLayout';
 import Main from '../../layouts/Main';
 
 type EmployeeFormStructure = { names: Employee['names']; surnames: Employee['surnames'] };
