@@ -5,7 +5,7 @@ import Main from '../../layouts/Main';
 
 type EmployeeFormStructure = { names: Employee['names']; surnames: Employee['surnames'] };
 
-function CrearEmpleadoPage() {
+function CreateEmployeePage() {
     const { register, handleSubmit } = useForm<EmployeeFormStructure>();
 
     return (
@@ -50,4 +50,4 @@ function CrearEmpleadoPage() {
     );
 }
 
-export default CrearEmpleadoPage;
+export default CreateEmployeePage;

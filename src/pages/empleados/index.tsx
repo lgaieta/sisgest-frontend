@@ -28,7 +28,7 @@ const LoadingSpinner = () => {
     );
 };
 
-function EmpleadosPage() {
+function EmployeesPage() {
     const { data: employeesList, isLoading, isError, refetch } = useLoadEmployees();
     const { mutate: deleteEmployee } = useDeleteEmployee();
     const [hasEmployeeBeenDeleted, setHasEmployeeBeenDeleted] = useState<boolean>(false);
@@ -96,4 +96,4 @@ function EmpleadosPage() {
     );
 }
 
-export default EmpleadosPage;
+export default EmployeesPage;
