@@ -1,35 +1,20 @@
 import { Box, TextField, Button, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import Employee from '../../entities/Employee.entity';
+import CreateEmployeeLayout from '../../layouts/empleados/CreateEmployeeLayout';
 import Main from '../../layouts/Main';
 
 type EmployeeFormStructure = { names: Employee['names']; surnames: Employee['surnames'] };
+
+const { Container, Form } = CreateEmployeeLayout;
 
 function CreateEmployeePage() {
     const { register, handleSubmit } = useForm<EmployeeFormStructure>();
 
     return (
         <Main title='Crear empleado' hideHeader>
-            <Box
-                sx={{
-                    position: 'absolute',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '90%',
-                    width: '80%',
-                }}
-            >
-                <Box
-                    component='form'
-                    onSubmit={handleSubmit(data => console.log(data))}
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '1rem',
-                        width: '40%',
-                    }}
-                >
+            <Container>
+                <Form onSubmit={handleSubmit(data => console.log(data))}>
                     <Typography variant='h3' sx={{ fontWeight: '700' }}>
                         Crear empleado
                     </Typography>
@@ -44,8 +29,8 @@ function CreateEmployeePage() {
                     >
                         Crear
                     </Button>
-                </Box>
-            </Box>
+                </Form>
+            </Container>
         </Main>
     );
 }
