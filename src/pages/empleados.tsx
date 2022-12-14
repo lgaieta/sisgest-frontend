@@ -6,6 +6,7 @@ import useDeleteEmployee from '../hooks/useDeleteEmployee';
 import useLoadEmployees from '../hooks/useLoadEmployees';
 import { lazy, Suspense, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
+import Link from 'next/link';
 
 const EmployeesTable = lazy(() => import('../components/EmployeesTable'));
 const ErrorMessage = lazy(() => import('../components/ErrorMessage'));
@@ -42,7 +43,9 @@ function EmpleadosPage() {
                             <ReplayIcon />
                         </IconButton>
                     </Tooltip>
-                    <Button variant='outlined'>Crear Empleado</Button>
+                    <Button variant='outlined' component={Link} href='/crear-empleado'>
+                        Crear Empleado
+                    </Button>
                 </Box>
             )}
         >
