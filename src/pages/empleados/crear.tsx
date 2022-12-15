@@ -1,17 +1,15 @@
 import { TextField, Button, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import ErrorMessage from '../../components/ErrorMessage';
-import Employee from '../../entities/Employee.entity';
 import CreateEmployeeLayout from '../../layouts/employees/CreateEmployeeLayout';
 import Main from '../../layouts/Main';
+import { CreateEmployeeFormStructure } from '../../pages-content/empleados/crear/CreateEmployeeFormStructure.type';
 import { CreateEmployeeResolver } from '../../pages-content/empleados/crear/CreateEmployeeResolver';
-
-type EmployeeFormStructure = { names: Employee['names']; surnames: Employee['surnames'] };
 
 const { Container, Form } = CreateEmployeeLayout;
 
 function CreateEmployeePage() {
-    const { formState, register, handleSubmit } = useForm<EmployeeFormStructure>({
+    const { formState, register, handleSubmit } = useForm<CreateEmployeeFormStructure>({
         resolver: CreateEmployeeResolver,
     });
 
