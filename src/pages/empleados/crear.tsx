@@ -1,15 +1,19 @@
-import { Box, TextField, Button, Typography } from '@mui/material';
+import { TextField, Button, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import ErrorMessage from '../../components/ErrorMessage';
 import Employee from '../../entities/Employee.entity';
 import CreateEmployeeLayout from '../../layouts/employees/CreateEmployeeLayout';
 import Main from '../../layouts/Main';
+import { CreateEmployeeResolver } from '../../pages-content/empleados/crear/CreateEmployeeResolver';
 
 type EmployeeFormStructure = { names: Employee['names']; surnames: Employee['surnames'] };
 
 const { Container, Form } = CreateEmployeeLayout;
 
 function CreateEmployeePage() {
-    const { register, handleSubmit } = useForm<EmployeeFormStructure>();
+    const { formState, register, handleSubmit } = useForm<EmployeeFormStructure>({
+        resolver: CreateEmployeeResolver,
+    });
 
     return (
         <Main title='Crear empleado' hideHeader>
@@ -29,6 +33,15 @@ function CreateEmployeePage() {
                     >
                         Crear
                     </Button>
+                    {formState.errors ? (
+                        <>
+                            {Object.keys(formState.errors).map(errorName => (
+                                <ErrorMessage>
+                                    {formState.errors[errorName].message}
+                                </ErrorMessage>
+                            ))}
+                        </>
+                    ) : null}
                 </Form>
             </Container>
         </Main>
