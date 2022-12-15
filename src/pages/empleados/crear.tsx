@@ -37,7 +37,7 @@ function CreateEmployeePage() {
                         <>
                             {Object.keys(formState.errors).map(errorName => (
                                 <ErrorMessage>
-                                    {formState.errors[errorName].message}
+                                    {formState.errors[errorName].message as string}
                                 </ErrorMessage>
                             ))}
                         </>
