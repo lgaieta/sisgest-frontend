@@ -1,5 +1,5 @@
 export const postEmployee = async (employee: { names: string; surnames: string }) => {
-    fetch('http://localhost:7000/empleado', {
+    return fetch('http://localhost:7000/empleado', {
         method: 'POST',
         body: JSON.stringify({ ...employee, client_id: 1 }),
         headers: {
