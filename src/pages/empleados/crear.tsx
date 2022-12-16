@@ -1,4 +1,5 @@
 import { TextField, Button, Typography } from '@mui/material';
+import Head from 'next/head';
 import ErrorMessage from '../../components/ErrorMessage';
 import CreateEmployeeLayout from '../../layouts/employees/CreateEmployeeLayout';
 import Main from '../../layouts/Main';
@@ -12,6 +13,9 @@ function CreateEmployeePage() {
 
     return (
         <Main title='Crear empleado' hideHeader>
+            <Head>
+                <title>Crear empleado - SisGest</title>
+            </Head>
             <Container>
                 <Form onSubmit={handleSubmit(data => createEmployee(data))}>
                     <Typography variant='h3' sx={{ fontWeight: '700' }}>
