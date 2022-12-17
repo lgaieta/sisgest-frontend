@@ -70,6 +70,7 @@ function EmployeesPage() {
                                     },
                                 });
                             }}
+                            onRowClick={console.log}
                         />
                     )}
                 </Suspense>
