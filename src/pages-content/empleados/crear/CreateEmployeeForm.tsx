@@ -1,7 +1,7 @@
 import { Typography, TextField, Button } from '@mui/material';
 import ErrorMessage from '../../../components/ErrorMessage';
 import { useCreateEmployeeForm } from './useCreateEmployeeForm';
-import CreateEmployeeLayout from '../../../layouts/employees/CreateEmployeeLayout';
+import CreateEmployeeLayout from './CreateEmployeeLayout';
 
 function CreateEmployeeForm() {
     const { formState, register, handleSubmit, createEmployee, isLoading, isError } =
