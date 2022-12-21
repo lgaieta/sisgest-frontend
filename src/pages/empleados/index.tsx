@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, IconButton, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, IconButton } from '@mui/material';
 import Main from '../../layouts/Main';
 import Tooltip from '@mui/material/Tooltip';
 import ReplayIcon from '@mui/icons-material/Replay';
@@ -7,6 +7,8 @@ import useLoadEmployees from '../../hooks/useLoadEmployees';
 import { lazy, Suspense, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
+import Employee from '../../entities/Employee.entity';
+import EmployeeDetailsDialog from '../../pages-content/empleados/EmployeeDetailsDialog';
 
 const EmployeesTable = lazy(() => import('../../layouts/employees/EmployeesTable'));
 const ErrorMessage = lazy(() => import('../../components/ErrorMessage'));
@@ -32,6 +34,8 @@ function EmployeesPage() {
     const { data: employeesList, isLoading, isError, refetch } = useLoadEmployees();
     const { mutate: deleteEmployee } = useDeleteEmployee();
     const [hasEmployeeBeenDeleted, setHasEmployeeBeenDeleted] = useState<boolean>(false);
+    const [isEmployeeDetails, setIsEmployeeDetails] = useState<boolean>(false);
+    const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
 
     return (
         <Main
@@ -70,11 +74,30 @@ function EmployeesPage() {
                                     },
                                 });
                             }}
-                            onRowClick={console.log}
+                            onRowClick={employee => {
+                                setSelectedEmployee(employee);
+                                setIsEmployeeDetails(true);
+                            }}
                         />
                     )}
                 </Suspense>
             )}
+            <EmployeeDetailsDialog
+                isOpen={isEmployeeDetails}
+                employee={selectedEmployee}
+                onEditButtonClick={() => console.log('editado')}
+                onDeleteButtonClick={id => {
+                    deleteEmployee(id, {
+                        onSuccess: () => {
+                            refetch();
+                            setHasEmployeeBeenDeleted(true);
+                            setIsEmployeeDetails(false);
+                        },
+                    });
+                }}
+                onCloseButtonClick={() => setIsEmployeeDetails(false)}
+                onDialogClose={() => setIsEmployeeDetails(false)}
+            />
             {/* Deleted employee snackbar */}
             <Suspense>
                 <Snackbar

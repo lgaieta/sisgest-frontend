@@ -32,7 +32,13 @@ function EmployeesTable(props: EmployeesTableProps) {
                 </TableHead>
                 <TableBody>
                     {employees.map(employee => (
-                        <TableRow key={employee.id} onClick={() => onRowClick(employee)}>
+                        <TableRow
+                            key={employee.id}
+                            onClick={() => onRowClick(employee)}
+                            sx={{
+                                '&:hover': { bgcolor: '#F3F3F3' },
+                            }}
+                        >
                             <TableCell>{employee.names}</TableCell>
                             <TableCell>{employee.surnames}</TableCell>
                             <TableCell>
