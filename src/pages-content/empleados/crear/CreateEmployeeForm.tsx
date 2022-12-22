@@ -8,9 +8,7 @@ function CreateEmployeeForm() {
         useCreateEmployeeForm();
 
     return (
-        <CreateEmployeeFormLayout.Form
-            onSubmit={handleSubmit(data => createEmployee(data))}
-        >
+        <CreateEmployeeLayout.Form onSubmit={handleSubmit(data => createEmployee(data))}>
             <Typography variant='h3' sx={{ fontWeight: '700' }}>
                 Crear empleado
             </Typography>
@@ -40,7 +38,7 @@ function CreateEmployeeForm() {
                     nuevamente.
                 </ErrorMessage>
             )}
-        </CreateEmployeeFormLayout.Form>
+        </CreateEmployeeLayout.Form>
     );
 }
 
