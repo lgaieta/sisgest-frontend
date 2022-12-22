@@ -47,7 +47,10 @@ function EmployeesTable(props: EmployeesTableProps) {
                             <TableCell>
                                 <Tooltip title='Borrar'>
                                     <DeleteIcon
-                                        onClick={() => onDeleteEmployee(employee.id)}
+                                        onClick={e => {
+                                            e.stopPropagation();
+                                            onDeleteEmployee(employee.id);
+                                        }}
                                     />
                                 </Tooltip>
                             </TableCell>
