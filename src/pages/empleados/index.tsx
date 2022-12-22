@@ -8,12 +8,14 @@ import { lazy, Suspense, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
 import Employee from '../../entities/Employee.entity';
-import EmployeeDetailsDialog from '../../pages-content/empleados/EmployeeDetailsDialog';
 import EmployeeListTagsWithKeys from '../../pages-content/empleados/EmployeeListTagsWithKeys';
 
 const EmployeesTable = lazy(() => import('../../pages-content/empleados/EmployeesTable'));
 const ErrorMessage = lazy(() => import('../../components/ErrorMessage'));
 const Snackbar = lazy(() => import('@mui/material/Snackbar'));
+const EmployeeDetailsDialog = lazy(
+    () => import('../../pages-content/empleados/EmployeeDetailsDialog')
+);
 
 const LoadingSpinner = () => {
     return (
@@ -84,23 +86,25 @@ function EmployeesPage() {
                     )}
                 </Suspense>
             )}
-            <EmployeeDetailsDialog
-                isOpen={isEmployeeDetails}
-                tags={EmployeeListTagsWithKeys}
-                employee={selectedEmployee}
-                onEditButtonClick={() => console.log('editado')}
-                onDeleteButtonClick={id => {
-                    deleteEmployee(id, {
-                        onSuccess: () => {
-                            refetch();
-                            setHasEmployeeBeenDeleted(true);
-                            setIsEmployeeDetails(false);
-                        },
-                    });
-                }}
-                onCloseButtonClick={() => setIsEmployeeDetails(false)}
-                onDialogClose={() => setIsEmployeeDetails(false)}
-            />
+            <Suspense>
+                <EmployeeDetailsDialog
+                    isOpen={isEmployeeDetails}
+                    tags={EmployeeListTagsWithKeys}
+                    employee={selectedEmployee}
+                    onEditButtonClick={() => console.log('editado')}
+                    onDeleteButtonClick={id => {
+                        deleteEmployee(id, {
+                            onSuccess: () => {
+                                refetch();
+                                setHasEmployeeBeenDeleted(true);
+                                setIsEmployeeDetails(false);
+                            },
+                        });
+                    }}
+                    onCloseButtonClick={() => setIsEmployeeDetails(false)}
+                    onDialogClose={() => setIsEmployeeDetails(false)}
+                />
+            </Suspense>
             {/* Deleted employee snackbar */}
             <Suspense>
                 <Snackbar
