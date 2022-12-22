@@ -12,6 +12,7 @@ import Employee from '../../entities/Employee.entity';
 type EmployeeDetailsDialogProps = {
     isOpen: boolean;
     employee: Employee | null;
+    tags: [string, keyof Employee][];
     onEditButtonClick: () => void;
     onDeleteButtonClick: (id: Employee['id']) => void;
     onCloseButtonClick: () => void;
@@ -26,6 +27,7 @@ function EmployeeDetailsDialog(props: EmployeeDetailsDialogProps) {
         onCloseButtonClick,
         onDialogClose,
         employee,
+        tags,
     } = props;
 
     if (!employee) return null;
@@ -46,24 +48,14 @@ function EmployeeDetailsDialog(props: EmployeeDetailsDialogProps) {
                         width: '100%',
                     }}
                 >
-                    <Box>
-                        <Typography variant='subtitle1' sx={{ fontWeight: '700' }}>
-                            Nombres
-                        </Typography>
-                        <Typography variant='body1'>{employee.names}</Typography>
-                    </Box>
-                    <Box>
-                        <Typography variant='subtitle1' sx={{ fontWeight: '700' }}>
-                            Apellidos
-                        </Typography>
-                        <Typography variant='body1'>{employee.surnames}</Typography>
-                    </Box>
-                    <Box>
-                        <Typography variant='subtitle1' sx={{ fontWeight: '700' }}>
-                            Cliente
-                        </Typography>
-                        <Typography variant='body1'>{employee.surnames}</Typography>
-                    </Box>
+                    {tags.map(([tag, key]) => (
+                        <Box>
+                            <Typography variant='subtitle1' sx={{ fontWeight: '700' }}>
+                                {tag}
+                            </Typography>
+                            <Typography variant='body1'>{employee[key]}</Typography>
+                        </Box>
+                    ))}
                 </Box>
             </DialogContent>
             <DialogActions>

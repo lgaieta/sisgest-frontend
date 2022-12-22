@@ -13,20 +13,22 @@ import Employee from '../../entities/Employee.entity';
 
 type EmployeesTableProps = {
     employees: Employee[];
+    tags: [string, keyof Employee][];
     onDeleteEmployee: (id: Employee['id']) => void;
     onRowClick: (employee: Employee) => void;
 };
 
 function EmployeesTable(props: EmployeesTableProps) {
-    const { employees, onDeleteEmployee, onRowClick } = props;
+    const { employees, onDeleteEmployee, onRowClick, tags } = props;
 
     return (
         <TableContainer component={Paper} variant='outlined'>
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Nombres</TableCell>
-                        <TableCell>Apellidos</TableCell>
+                        {tags.map(([tag]) => (
+                            <TableCell key={tag}>{tag}</TableCell>
+                        ))}
                         <TableCell>Acciones</TableCell>
                     </TableRow>
                 </TableHead>
@@ -39,8 +41,9 @@ function EmployeesTable(props: EmployeesTableProps) {
                                 '&:hover': { bgcolor: '#F3F3F3' },
                             }}
                         >
-                            <TableCell>{employee.names}</TableCell>
-                            <TableCell>{employee.surnames}</TableCell>
+                            {tags.map(([, key]) => (
+                                <TableCell key={employee[key]}>{employee[key]}</TableCell>
+                            ))}
                             <TableCell>
                                 <Tooltip title='Borrar'>
                                     <DeleteIcon

@@ -9,8 +9,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
 import Employee from '../../entities/Employee.entity';
 import EmployeeDetailsDialog from '../../pages-content/empleados/EmployeeDetailsDialog';
+import EmployeeListTagsWithKeys from '../../pages-content/empleados/EmployeeListTagsWithKeys';
 
-const EmployeesTable = lazy(() => import('../../layouts/employees/EmployeesTable'));
+const EmployeesTable = lazy(() => import('../../pages-content/empleados/EmployeesTable'));
 const ErrorMessage = lazy(() => import('../../components/ErrorMessage'));
 const Snackbar = lazy(() => import('@mui/material/Snackbar'));
 
@@ -65,6 +66,7 @@ function EmployeesPage() {
                     )}
                     {employeesList && (
                         <EmployeesTable
+                            tags={EmployeeListTagsWithKeys}
                             employees={employeesList}
                             onDeleteEmployee={id => {
                                 deleteEmployee(id, {
@@ -84,6 +86,7 @@ function EmployeesPage() {
             )}
             <EmployeeDetailsDialog
                 isOpen={isEmployeeDetails}
+                tags={EmployeeListTagsWithKeys}
                 employee={selectedEmployee}
                 onEditButtonClick={() => console.log('editado')}
                 onDeleteButtonClick={id => {
