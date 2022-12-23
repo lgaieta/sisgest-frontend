@@ -1,5 +1,5 @@
 import Employee from '../../../entities/Employee.entity';
-import { getEmployees } from '../services/getEmployees';
+import getEmployees from '../services/getEmployees';
 import adaptEmployeesList from '../adapters/adaptEmployeesList';
 
 const listEmployees = async (): Promise<Employee[]> => {
