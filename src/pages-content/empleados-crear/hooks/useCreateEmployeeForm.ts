@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import postEmployee from '../services/postEmployee';
 import CreateEmployeeFormStructure from '../types/CreateEmployeeFormStructure.type';
+import createEmployee from '../usecases/createEmployee';
 import CreateEmployeeResolver from '../utils/CreateEmployeeResolver';
 
 const useCreateEmployeeForm = () => {
@@ -14,10 +14,9 @@ const useCreateEmployeeForm = () => {
     const router = useRouter();
 
     // Async logic handling
-    const { mutate, isLoading, isError } = useMutation(
-        async (data: CreateEmployeeFormStructure) => postEmployee(data),
-        { onSuccess: () => router.push('/empleados') }
-    );
+    const { mutate, isLoading, isError } = useMutation(createEmployee, {
+        onSuccess: () => router.push('/empleados'),
+    });
 
     return {
         formState,
