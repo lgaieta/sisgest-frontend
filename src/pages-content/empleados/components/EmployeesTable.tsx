@@ -9,7 +9,7 @@ import {
     Tooltip,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Employee from '../../entities/Employee.entity';
+import Employee from '../../../entities/Employee.entity';
 
 type EmployeesTableProps = {
     employees: Employee[];

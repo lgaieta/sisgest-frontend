@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { postEmployee } from '../../../services/postEmployee';
-import { CreateEmployeeFormStructure } from './CreateEmployeeFormStructure.type';
-import { CreateEmployeeResolver } from './CreateEmployeeResolver';
+import postEmployee from '../services/postEmployee';
+import CreateEmployeeFormStructure from '../types/CreateEmployeeFormStructure.type';
+import CreateEmployeeResolver from '../utils/CreateEmployeeResolver';
 
-export const useCreateEmployeeForm = () => {
+const useCreateEmployeeForm = () => {
     // Form handling
     const { formState, register, handleSubmit } = useForm<CreateEmployeeFormStructure>({
         resolver: CreateEmployeeResolver,
@@ -28,3 +28,4 @@ export const useCreateEmployeeForm = () => {
         isError,
     };
 };
+export default useCreateEmployeeForm;

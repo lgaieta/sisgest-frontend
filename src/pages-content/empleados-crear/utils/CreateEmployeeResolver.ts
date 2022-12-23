@@ -16,4 +16,6 @@ const schema = z.object({
         }),
 });
 
-export const CreateEmployeeResolver = zodResolver(schema);
+const CreateEmployeeResolver = zodResolver(schema);
+
+export default CreateEmployeeResolver;

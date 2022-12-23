@@ -1,7 +1,7 @@
 import Head from 'next/head';
-import CreateEmployeeLayout from '../../pages-content/empleados/crear/CreateEmployeeLayout';
+import CreateEmployeeLayout from '../../pages-content/empleados-crear/layouts/CreateEmployeeLayout';
 import Main from '../../layouts/Main';
-import CreateEmployeeForm from '../../pages-content/empleados/crear/CreateEmployeeForm';
+import CreateEmployeeForm from '../../pages-content/empleados-crear/components/CreateEmployeeForm';
 
 const { Container } = CreateEmployeeLayout;
 

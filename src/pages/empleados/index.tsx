@@ -2,19 +2,21 @@ import { Box, Button, CircularProgress, IconButton } from '@mui/material';
 import Main from '../../layouts/Main';
 import Tooltip from '@mui/material/Tooltip';
 import ReplayIcon from '@mui/icons-material/Replay';
-import useDeleteEmployee from '../../hooks/useDeleteEmployee';
-import useLoadEmployees from '../../hooks/useLoadEmployees';
+import useDeleteEmployee from '../../pages-content/empleados/hooks/useDeleteEmployee';
+import useLoadEmployees from '../../pages-content/empleados/hooks/useLoadEmployees';
 import { lazy, Suspense, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
 import Employee from '../../entities/Employee.entity';
-import EmployeeListTagsWithKeys from '../../pages-content/empleados/EmployeeListTagsWithKeys';
+import EmployeeListTagsWithKeys from '../../pages-content/empleados/utils/EmployeeListTagsWithKeys';
 
-const EmployeesTable = lazy(() => import('../../pages-content/empleados/EmployeesTable'));
+const EmployeesTable = lazy(
+    () => import('../../pages-content/empleados/components/EmployeesTable')
+);
 const ErrorMessage = lazy(() => import('../../components/ErrorMessage'));
 const Snackbar = lazy(() => import('@mui/material/Snackbar'));
 const EmployeeDetailsDialog = lazy(
-    () => import('../../pages-content/empleados/EmployeeDetailsDialog')
+    () => import('../../pages-content/empleados/components/EmployeeDetailsDialog')
 );
 
 const LoadingSpinner = () => {

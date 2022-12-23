@@ -7,7 +7,7 @@ import {
     DialogActions,
     Button,
 } from '@mui/material';
-import Employee from '../../entities/Employee.entity';
+import Employee from '../../../entities/Employee.entity';
 
 type EmployeeDetailsDialogProps = {
     isOpen: boolean;

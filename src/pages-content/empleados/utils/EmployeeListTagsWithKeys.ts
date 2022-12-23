@@ -1,4 +1,4 @@
-import Employee from '../../entities/Employee.entity';
+import Employee from '../../../entities/Employee.entity';
 
 const EmployeeListTagsWithKeys: [string, keyof Employee][] = [
     ['Nombres', 'names'],
