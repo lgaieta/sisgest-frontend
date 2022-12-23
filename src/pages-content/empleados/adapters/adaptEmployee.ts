@@ -1,5 +1,5 @@
 import Employee from '../../../entities/Employee.entity';
-import { FetchedEmployee } from '../services/getEmployees';
+import { FetchedEmployee } from '../services/getEmployeesFromRepository';
 import { Adapter } from '../../../adapters/Adapter';
 
 const adaptEmployee: Adapter<FetchedEmployee, Employee> = entry => {

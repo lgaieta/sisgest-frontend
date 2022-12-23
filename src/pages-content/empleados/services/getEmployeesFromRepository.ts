@@ -5,11 +5,9 @@ export type FetchedEmployee = {
     id_cliente: number;
 };
 
-type GetEmployees = () => Promise<FetchedEmployee[]>;
-
-const getEmployees: GetEmployees = async () => {
+const getEmployeesFromRepository = async (): Promise<FetchedEmployee[]> => {
     const query = await fetch('http://localhost:7000/empleado');
     return await query.json();
 };
 
-export default getEmployees;
+export default getEmployeesFromRepository;
