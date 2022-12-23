@@ -1,12 +1,6 @@
 import { useMutation } from 'react-query';
-import Employee from '../../../entities/Employee.entity';
+import deleteEmployee from '../usecases/deleteEmployee';
 
-const useDeleteEmployee = () => {
-    return useMutation(async (id: Employee['id']) => {
-        await fetch('http://localhost:7000/empleado/' + id, {
-            method: 'DELETE',
-        });
-    });
-};
+const useDeleteEmployee = () => useMutation(deleteEmployee);
 
 export default useDeleteEmployee;
