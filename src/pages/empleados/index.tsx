@@ -9,6 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
 import Employee from '../../entities/Employee.entity';
 import EmployeeListTagsWithKeys from '../../pages-content/empleados/utils/EmployeeListTagsWithKeys';
+import Head from 'next/head';
 
 const EmployeesTable = lazy(
     () => import('../../pages-content/empleados/components/EmployeesTable')
@@ -58,6 +59,9 @@ function EmployeesPage() {
                 </Box>
             )}
         >
+            <Head>
+                <title>Empleados - SisGest</title>
+            </Head>
             {isLoading ? (
                 <LoadingSpinner />
             ) : (
