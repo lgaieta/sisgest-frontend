@@ -6,7 +6,10 @@ import {
     Box,
     DialogActions,
     Button,
+    TextField,
 } from '@mui/material';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import Employee from '../../../entities/Employee.entity';
 
 type EmployeeDetailsDialogProps = {
@@ -29,6 +32,9 @@ function EmployeeDetailsDialog(props: EmployeeDetailsDialogProps) {
         employee,
         tags,
     } = props;
+
+    const { register, handleSubmit } = useForm<typeof employee>();
+    const [isEditable, setIsEditable] = useState<boolean>(false);
 
     if (!employee) return null;
 
@@ -53,14 +59,30 @@ function EmployeeDetailsDialog(props: EmployeeDetailsDialogProps) {
                             <Typography variant='subtitle1' sx={{ fontWeight: '700' }}>
                                 {tag}
                             </Typography>
-                            <Typography variant='body1'>{employee[key]}</Typography>
+                            {isEditable ? (
+                                <TextField
+                                    type='text'
+                                    size='small'
+                                    defaultValue={employee[key]}
+                                    hiddenLabel
+                                    {...register(key)}
+                                />
+                            ) : (
+                                <Typography variant='body1'>{employee[key]}</Typography>
+                            )}
                         </Box>
                     ))}
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button variant='outlined' onClick={onEditButtonClick}>
-                    Editar
+                <Button
+                    variant='outlined'
+                    onClick={() => {
+                        onEditButtonClick();
+                        setIsEditable(prev => !prev);
+                    }}
+                >
+                    {isEditable ? 'Guardar' : 'Editar'}
                 </Button>
                 <Button
                     variant='outlined'
