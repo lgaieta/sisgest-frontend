@@ -1,15 +1,12 @@
-import { Box, Button, CircularProgress, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import Main from '../../layouts/Main';
-import Tooltip from '@mui/material/Tooltip';
-import ReplayIcon from '@mui/icons-material/Replay';
-import useDeleteEmployee from '../../pages-content/empleados/hooks/useDeleteEmployee';
-import useLoadEmployees from '../../pages-content/empleados/hooks/useLoadEmployees';
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-import Link from 'next/link';
-import Employee from '../../entities/Employee.entity';
 import EmployeeListTagsWithKeys from '../../pages-content/empleados/utils/EmployeeListTagsWithKeys';
 import Head from 'next/head';
+import LoadingSpinner from '../../pages-content/empleados/components/EmployeeLoadingSpinner';
+import EmployeeHeaderContent from '../../pages-content/empleados/components/EmployeeHeaderContent';
+import useEmployee from '../../pages-content/empleados/hooks/useEmployee';
 
 const EmployeesTable = lazy(
     () => import('../../pages-content/empleados/components/EmployeesTable')
@@ -20,44 +17,26 @@ const EmployeeDetailsDialog = lazy(
     () => import('../../pages-content/empleados/components/EmployeeDetailsDialog')
 );
 
-const LoadingSpinner = () => {
-    return (
-        <Box
-            sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                minHeight: '8rem',
-                marginTop: '-1.5rem',
-            }}
-        >
-            <CircularProgress />
-        </Box>
-    );
-};
-
 function EmployeesPage() {
-    const { data: employeesList, isLoading, isError, refetch } = useLoadEmployees();
-    const { mutate: deleteEmployee } = useDeleteEmployee();
-    const [hasEmployeeBeenDeleted, setHasEmployeeBeenDeleted] = useState<boolean>(false);
-    const [isEmployeeDetails, setIsEmployeeDetails] = useState<boolean>(false);
-    const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+    const {
+        employeesList,
+        isLoading,
+        isError,
+        refetch,
+        deleteEmployee,
+        hasEmployeeBeenDeleted,
+        setHasEmployeeBeenDeleted,
+        isEmployeeDetails,
+        setIsEmployeeDetails,
+        selectedEmployee,
+        setSelectedEmployee,
+        updateEmployee,
+    } = useEmployee();
 
     return (
         <Main
             title='Empleados'
-            headerContent={() => (
-                <Box sx={{ display: 'flex', gap: '1rem' }}>
-                    <Tooltip title='Recargar empleados'>
-                        <IconButton onClick={() => refetch()}>
-                            <ReplayIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Button variant='outlined' component={Link} href='/empleados/crear'>
-                        Crear Empleado
-                    </Button>
-                </Box>
-            )}
+            headerContent={() => <EmployeeHeaderContent refetch={refetch} />}
         >
             <Head>
                 <title>Empleados - SisGest</title>
@@ -109,6 +88,7 @@ function EmployeesPage() {
                     }}
                     onCloseButtonClick={() => setIsEmployeeDetails(false)}
                     onDialogClose={() => setIsEmployeeDetails(false)}
+                    onFormSubmit={updateEmployee}
                 />
             </Suspense>
             {/* Deleted employee snackbar */}
