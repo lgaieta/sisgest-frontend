@@ -14,7 +14,10 @@ const EmployeesTable = lazy(
 const ErrorMessage = lazy(() => import('../../components/ErrorMessage'));
 const Snackbar = lazy(() => import('@mui/material/Snackbar'));
 const EmployeeDetailsDialog = lazy(
-    () => import('../../pages-content/empleados/components/EmployeeDetailsDialog')
+    () =>
+        import(
+            '../../pages-content/empleados/components/details-dialog/EmployeeDetailsDialog'
+        )
 );
 
 function EmployeesPage() {

@@ -10,7 +10,8 @@ import {
 } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import Employee from '../../../entities/Employee.entity';
+import Employee from '../../../../entities/Employee.entity';
+import DetailsDialogStyles from './EmployeeDetailsDialog.styles';
 
 type EmployeeDetailsDialogProps = {
     isOpen: boolean;
@@ -22,6 +23,8 @@ type EmployeeDetailsDialogProps = {
     onDialogClose: () => void;
     onFormSubmit: (employee: Employee) => void;
 };
+
+const { DetailsContainerStyles } = DetailsDialogStyles;
 
 function EmployeeDetailsDialog(props: EmployeeDetailsDialogProps) {
     const {
@@ -50,14 +53,7 @@ function EmployeeDetailsDialog(props: EmployeeDetailsDialogProps) {
                     </Typography>
                 </DialogTitle>
                 <DialogContent dividers>
-                    <Box
-                        sx={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fill, minmax(225px, 1fr))',
-                            gridAutoRows: 'auto',
-                            width: '100%',
-                        }}
-                    >
+                    <Box sx={DetailsContainerStyles}>
                         {tags.map(([tag, key]) => (
                             <Box>
                                 <Typography
