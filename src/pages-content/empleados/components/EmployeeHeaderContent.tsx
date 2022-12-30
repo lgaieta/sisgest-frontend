@@ -6,10 +6,15 @@ const EmployeeHeaderContent = ({ refetch }: { refetch: () => void }) => (
     <Box sx={{ display: 'flex', gap: '1rem' }}>
         <Tooltip title='Recargar empleados'>
             <IconButton onClick={() => refetch()}>
-                <ReplayIcon />
+                <ReplayIcon sx={{ color: 'secondary.contrastText' }} />
             </IconButton>
         </Tooltip>
-        <Button variant='outlined' component={Link} href='/empleados/crear'>
+        <Button
+            variant='contained'
+            disableElevation
+            component={Link}
+            href='/empleados/crear'
+        >
             Crear Empleado
         </Button>
     </Box>

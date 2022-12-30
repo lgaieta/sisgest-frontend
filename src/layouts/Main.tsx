@@ -35,8 +35,8 @@ function Main(props: MainProps) {
                     <AppBar
                         component='header'
                         sx={{
-                            bgcolor: 'background.paper',
-                            color: 'text.primary',
+                            bgcolor: 'secondary.main',
+                            color: 'secondary.contrastText',
                             borderLeft: 'none',
                         }}
                         elevation={0}
@@ -64,6 +64,7 @@ function Main(props: MainProps) {
                         width: '100',
                         minHeight: '100vh',
                         padding: '1.5rem',
+                        bgcolor: 'background.default',
                     }}
                 >
                     {props.children}
