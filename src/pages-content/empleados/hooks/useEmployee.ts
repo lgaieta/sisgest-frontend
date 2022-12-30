@@ -7,7 +7,7 @@ import useUpdateEmployee from './useUpdateEmployee';
 const useEmployee = () => {
     const { data: employeesList, isLoading, isError, refetch } = useLoadEmployees();
     const { mutate: deleteEmployee } = useDeleteEmployee();
-    const [hasEmployeeBeenDeleted, setHasEmployeeBeenDeleted] = useState<boolean>(false);
+    const [snackbarMessage, setSnackbarMessage] = useState<string | false>(false);
     const [isEmployeeDetails, setIsEmployeeDetails] = useState<boolean>(false);
     const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
     const { mutate: updateEmployee } = useUpdateEmployee();
@@ -18,8 +18,8 @@ const useEmployee = () => {
         isError,
         refetch,
         deleteEmployee,
-        hasEmployeeBeenDeleted,
-        setHasEmployeeBeenDeleted,
+        snackbarMessage,
+        setSnackbarMessage,
         isEmployeeDetails,
         setIsEmployeeDetails,
         selectedEmployee,

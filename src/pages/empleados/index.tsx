@@ -27,8 +27,8 @@ function EmployeesPage() {
         isError,
         refetch,
         deleteEmployee,
-        hasEmployeeBeenDeleted,
-        setHasEmployeeBeenDeleted,
+        snackbarMessage,
+        setSnackbarMessage,
         isEmployeeDetails,
         setIsEmployeeDetails,
         selectedEmployee,
@@ -62,7 +62,10 @@ function EmployeesPage() {
                                 deleteEmployee(id, {
                                     onSuccess: () => {
                                         refetch();
-                                        setHasEmployeeBeenDeleted(true);
+                                        setSnackbarMessage(
+                                            'Empleado borrado correctamente.'
+                                        );
+                                        setTimeout(() => setSnackbarMessage(false), 4000);
                                     },
                                 });
                             }}
@@ -85,8 +88,9 @@ function EmployeesPage() {
                             deleteEmployee(id, {
                                 onSuccess: () => {
                                     refetch();
-                                    setHasEmployeeBeenDeleted(true);
+                                    setSnackbarMessage('Empleado borrado correctamente.');
                                     setIsEmployeeDetails(false);
+                                    setTimeout(() => setSnackbarMessage(false), 4000);
                                 },
                             });
                         }}
@@ -97,24 +101,27 @@ function EmployeesPage() {
                                 onSuccess: () => {
                                     refetch();
                                     setSelectedEmployee(employee);
+                                    setSnackbarMessage(
+                                        'Empleado actualizado correctamente'
+                                    );
+                                    setTimeout(() => setSnackbarMessage(false), 4000);
                                 },
                             });
                         }}
                     />
                 </Suspense>
             )}
-            {/* Deleted employee snackbar */}
             <Suspense>
                 <Snackbar
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                    open={hasEmployeeBeenDeleted}
-                    message='Empleado borrado'
+                    open={!(snackbarMessage === false)}
+                    message={snackbarMessage || ''}
                     action={
                         <IconButton
                             size='small'
                             aria-label='close'
                             color='inherit'
-                            onClick={() => setHasEmployeeBeenDeleted(false)}
+                            onClick={() => setSnackbarMessage(false)}
                         >
                             <CloseIcon fontSize='small' />
                         </IconButton>
