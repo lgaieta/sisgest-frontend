@@ -74,26 +74,35 @@ function EmployeesPage() {
                     )}
                 </Suspense>
             )}
-            <Suspense>
-                <EmployeeDetailsDialog
-                    isOpen={isEmployeeDetails}
-                    tags={EmployeeListTagsWithKeys}
-                    employee={selectedEmployee}
-                    onEditButtonClick={() => console.log('editado')}
-                    onDeleteButtonClick={id => {
-                        deleteEmployee(id, {
-                            onSuccess: () => {
-                                refetch();
-                                setHasEmployeeBeenDeleted(true);
-                                setIsEmployeeDetails(false);
-                            },
-                        });
-                    }}
-                    onCloseButtonClick={() => setIsEmployeeDetails(false)}
-                    onDialogClose={() => setIsEmployeeDetails(false)}
-                    onFormSubmit={updateEmployee}
-                />
-            </Suspense>
+            {isEmployeeDetails && (
+                <Suspense>
+                    <EmployeeDetailsDialog
+                        isOpen={isEmployeeDetails}
+                        tags={EmployeeListTagsWithKeys}
+                        employee={selectedEmployee}
+                        onEditButtonClick={() => console.log('editado')}
+                        onDeleteButtonClick={id => {
+                            deleteEmployee(id, {
+                                onSuccess: () => {
+                                    refetch();
+                                    setHasEmployeeBeenDeleted(true);
+                                    setIsEmployeeDetails(false);
+                                },
+                            });
+                        }}
+                        onCloseButtonClick={() => setIsEmployeeDetails(false)}
+                        onDialogClose={() => setIsEmployeeDetails(false)}
+                        onFormSubmit={employee => {
+                            updateEmployee(employee, {
+                                onSuccess: () => {
+                                    refetch();
+                                    setSelectedEmployee(employee);
+                                },
+                            });
+                        }}
+                    />
+                </Suspense>
+            )}
             {/* Deleted employee snackbar */}
             <Suspense>
                 <Snackbar
