@@ -1,7 +1,9 @@
 import Employee from '../../../entities/Employee.entity';
 
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const updateEmployeeInRepository = async (employee: Omit<Employee, 'client_id'>) => {
-    const res = await fetch('http://localhost:7000/empleado', {
+    const res = await fetch(`${baseUrl}/empleado`, {
         method: 'PUT',
         body: JSON.stringify(employee),
         headers: {

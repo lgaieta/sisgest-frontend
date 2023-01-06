@@ -1,5 +1,7 @@
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const postEmployee = async (employee: { names: string; surnames: string }) => {
-    return fetch('http://localhost:7000/empleado', {
+    return fetch(`${baseUrl}/empleado`, {
         method: 'POST',
         body: JSON.stringify({ ...employee, client_id: 1 }),
         headers: {
