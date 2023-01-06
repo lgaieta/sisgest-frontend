@@ -11,8 +11,7 @@ import {
     Box,
     useTheme,
 } from '@mui/material';
-import Icon from '@mui/material/Icon';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import Link from 'next/link';
 import ArticleIcon from '@mui/icons-material/Article';
 import PeopleIcon from '@mui/icons-material/People';

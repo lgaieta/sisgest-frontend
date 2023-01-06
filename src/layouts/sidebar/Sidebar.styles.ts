@@ -4,17 +4,17 @@ export const SidebarContainerStyles: (theme: Theme, open: boolean) => SxProps<Th
     theme,
     open
 ) => ({
-    position: 'sticky',
+    position: { xs: 'fixed', md: 'sticky' },
     top: 0,
     width: '100%',
-    height: '100vh',
+    height: { xs: open ? '100vh' : 0, md: '100vh' },
     gridArea: 'sidebar',
     transition: 'height .3s ease',
+    zIndex: 1200,
     '& .MuiDrawer-paper': {
         position: 'relative',
         boxSizing: 'border-box',
-        alignItems: { xs: 'center', md: 'inherit' },
-        paddingTop: '1.5rem',
+        paddingTop: { xs: open ? '1.5rem' : 0, md: '1.5rem' },
         paddingInline: '1rem',
         color: theme.palette.primary.contrastText,
         bgcolor: theme.palette.primary.main,
