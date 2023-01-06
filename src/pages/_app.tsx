@@ -2,16 +2,14 @@ import { Box, CssBaseline, ThemeProvider } from '@mui/material';
 import { useRouter } from 'next/router';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import Sidebar from '../layouts/Sidebar';
-import { useClientSelector } from '../hooks/useClientSelector';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import SisGestTheme from '../utils/SisGestTheme';
+import useSidebar from '../hooks/useSidebar';
 
 const queryClient = new QueryClient();
 
 const CustomApp = ({ Component, pageProps }: AppProps) => {
-    const [client, setClient] = useClientSelector();
-    const router = useRouter();
+    const sidebarProps = useSidebar();
 
     return (
         <>
@@ -25,12 +23,7 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
                 </Head>
                 <ThemeProvider theme={SisGestTheme}>
                     <CssBaseline />
-                    <Box>
-                        {router.pathname !== '/seleccionar-cliente' ? (
-                            <Sidebar client={client} setClient={setClient} />
-                        ) : null}
-                        <Component setClient={setClient} {...pageProps} />
-                    </Box>
+                    <Component sidebarProps={sidebarProps} {...pageProps} />
                 </ThemeProvider>
             </QueryClientProvider>
         </>

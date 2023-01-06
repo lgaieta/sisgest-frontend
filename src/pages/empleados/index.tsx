@@ -1,12 +1,14 @@
 import { IconButton } from '@mui/material';
-import Main from '../../layouts/Main';
+import Main from '../../layouts/main/Main';
 import { lazy, Suspense } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import EmployeeListTagsWithKeys from '../../pages-content/empleados/utils/EmployeeListTagsWithKeys';
 import Head from 'next/head';
 import LoadingSpinner from '../../pages-content/empleados/components/EmployeeLoadingSpinner';
-import EmployeeHeaderContent from '../../pages-content/empleados/components/EmployeeHeaderContent';
 import useEmployee from '../../pages-content/empleados/hooks/useEmployee';
+import EmployeeHeader from '../../pages-content/empleados/layouts/EmployeeHeader';
+import Sidebar, { SidebarProps } from '../../layouts/sidebar/Sidebar';
+import Content from '../../layouts/content/Content';
 
 const EmployeesTable = lazy(
     () => import('../../pages-content/empleados/components/EmployeesTable')
@@ -20,7 +22,7 @@ const EmployeeDetailsDialog = lazy(
         )
 );
 
-function EmployeesPage() {
+function EmployeesPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
     const {
         employeesList,
         isLoading,
@@ -37,80 +39,89 @@ function EmployeesPage() {
     } = useEmployee();
 
     return (
-        <Main
-            title='Empleados'
-            headerContent={() => <EmployeeHeaderContent refetch={refetch} />}
-        >
+        <Main>
             <Head>
                 <title>Empleados - SisGest</title>
             </Head>
-            {isLoading ? (
-                <LoadingSpinner />
-            ) : (
-                <Suspense fallback={<LoadingSpinner />}>
-                    {isError && (
-                        <ErrorMessage>
-                            Ha ocurrido un error. Por favor, recargue la página (tecla
-                            F5).
-                        </ErrorMessage>
-                    )}
-                    {employeesList && (
-                        <EmployeesTable
+            <EmployeeHeader
+                onMenuIconClick={() => sidebarProps.setOpen(true)}
+                onReplayIconClick={refetch}
+            />
+            <Sidebar {...sidebarProps} />
+            <Content>
+                {isLoading ? (
+                    <LoadingSpinner />
+                ) : (
+                    <Suspense fallback={<LoadingSpinner />}>
+                        {isError && (
+                            <ErrorMessage>
+                                Ha ocurrido un error. Por favor, recargue la página (tecla
+                                F5).
+                            </ErrorMessage>
+                        )}
+                        {employeesList && (
+                            <EmployeesTable
+                                tags={EmployeeListTagsWithKeys}
+                                employees={employeesList}
+                                onDeleteEmployee={id => {
+                                    deleteEmployee(id, {
+                                        onSuccess: () => {
+                                            refetch();
+                                            setSnackbarMessage(
+                                                'Empleado borrado correctamente.'
+                                            );
+                                            setTimeout(
+                                                () => setSnackbarMessage(false),
+                                                4000
+                                            );
+                                        },
+                                    });
+                                }}
+                                onRowClick={employee => {
+                                    setSelectedEmployee(employee);
+                                    setIsEmployeeDetails(true);
+                                }}
+                            />
+                        )}
+                    </Suspense>
+                )}
+                {isEmployeeDetails && (
+                    <Suspense>
+                        <EmployeeDetailsDialog
+                            isOpen={isEmployeeDetails}
                             tags={EmployeeListTagsWithKeys}
-                            employees={employeesList}
-                            onDeleteEmployee={id => {
+                            employee={selectedEmployee}
+                            onEditButtonClick={() => console.log('editado')}
+                            onDeleteButtonClick={id => {
                                 deleteEmployee(id, {
                                     onSuccess: () => {
                                         refetch();
                                         setSnackbarMessage(
                                             'Empleado borrado correctamente.'
                                         );
+                                        setIsEmployeeDetails(false);
                                         setTimeout(() => setSnackbarMessage(false), 4000);
                                     },
                                 });
                             }}
-                            onRowClick={employee => {
-                                setSelectedEmployee(employee);
-                                setIsEmployeeDetails(true);
+                            onCloseButtonClick={() => setIsEmployeeDetails(false)}
+                            onDialogClose={() => setIsEmployeeDetails(false)}
+                            onFormSubmit={employee => {
+                                updateEmployee(employee, {
+                                    onSuccess: () => {
+                                        refetch();
+                                        setSelectedEmployee(employee);
+                                        setSnackbarMessage(
+                                            'Empleado actualizado correctamente'
+                                        );
+                                        setTimeout(() => setSnackbarMessage(false), 4000);
+                                    },
+                                });
                             }}
                         />
-                    )}
-                </Suspense>
-            )}
-            {isEmployeeDetails && (
-                <Suspense>
-                    <EmployeeDetailsDialog
-                        isOpen={isEmployeeDetails}
-                        tags={EmployeeListTagsWithKeys}
-                        employee={selectedEmployee}
-                        onEditButtonClick={() => console.log('editado')}
-                        onDeleteButtonClick={id => {
-                            deleteEmployee(id, {
-                                onSuccess: () => {
-                                    refetch();
-                                    setSnackbarMessage('Empleado borrado correctamente.');
-                                    setIsEmployeeDetails(false);
-                                    setTimeout(() => setSnackbarMessage(false), 4000);
-                                },
-                            });
-                        }}
-                        onCloseButtonClick={() => setIsEmployeeDetails(false)}
-                        onDialogClose={() => setIsEmployeeDetails(false)}
-                        onFormSubmit={employee => {
-                            updateEmployee(employee, {
-                                onSuccess: () => {
-                                    refetch();
-                                    setSelectedEmployee(employee);
-                                    setSnackbarMessage(
-                                        'Empleado actualizado correctamente'
-                                    );
-                                    setTimeout(() => setSnackbarMessage(false), 4000);
-                                },
-                            });
-                        }}
-                    />
-                </Suspense>
-            )}
+                    </Suspense>
+                )}
+            </Content>
             <Suspense>
                 <Snackbar
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}

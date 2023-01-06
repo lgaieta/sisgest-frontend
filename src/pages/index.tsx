@@ -1,13 +1,23 @@
 import Head from 'next/head';
-import Main from '../layouts/Main';
+import Content from '../layouts/content/Content';
+import Header from '../layouts/header/Header';
+import Main from '../layouts/main/Main';
+import Sidebar, { SidebarProps } from '../layouts/sidebar/Sidebar';
 
-function Home() {
+function Home(props: { sidebarProps: SidebarProps }) {
     return (
         <>
             <Head>
                 <title>Inicio - SisGest</title>
             </Head>
-            <Main title='Inicio'>Home page</Main>
+            <Main>
+                <Header
+                    title='Inicio'
+                    onMenuIconClick={() => props.sidebarProps.setOpen(true)}
+                />
+                <Sidebar {...props.sidebarProps} />
+                <Content>Inicio</Content>
+            </Main>
         </>
     );
 }

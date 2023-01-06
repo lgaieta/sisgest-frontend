@@ -8,74 +8,78 @@ import {
     ListItemText,
     Button,
     Paper,
+    Box,
     useTheme,
 } from '@mui/material';
 import Icon from '@mui/material/Icon';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import Link from 'next/link';
+import ArticleIcon from '@mui/icons-material/Article';
+import PeopleIcon from '@mui/icons-material/People';
+import {
+    SidebarContainerStyles,
+    SidebarNavigationItemButtonStyles,
+    SidebarTitleStyles,
+} from './Sidebar.styles';
 
-type SidebarProps = {
+export type SidebarProps = {
     client: string | null;
     setClient: Dispatch<SetStateAction<string | null>>;
+    open: boolean;
+    setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 function Sidebar(props: SidebarProps) {
-    const { client, setClient } = props;
+    const { client, setClient, open, setOpen } = props;
     const theme = useTheme();
 
     return (
-        <Drawer
-            variant='permanent'
-            sx={{
-                width: '13rem',
-                '& .MuiDrawer-paper': {
-                    paddingTop: '1.5rem',
-                    paddingInline: '1rem',
-                    width: '13rem',
-                    color: theme.palette.primary.contrastText,
-                    bgcolor: theme.palette.primary.main,
-                },
-            }}
-        >
-            <Typography
-                component={Link}
-                href='/'
-                variant='h5'
-                sx={{
-                    fontWeight: '500',
-                    width: '100%',
-                    textAlign: 'center',
-                    color: 'inherit',
-                    textDecoration: 'none',
-                    marginBottom: '1.5rem',
-                }}
-            >
+        <Drawer variant='permanent' sx={SidebarContainerStyles(theme, open)}>
+            <Typography component={Link} href='/' variant='h5' sx={SidebarTitleStyles}>
                 SisGest
             </Typography>
-            <nav>
-                <List>
-                    <ListItem disablePadding>
+            <Box component='nav' sx={{ width: '100%' }}>
+                <List sx={{ width: '100%' }}>
+                    <ListItem disablePadding sx={{ width: '100%' }}>
                         <ListItemButton
                             component={Link}
                             href='/empleados'
-                            sx={{ borderRadius: '.5rem' }}
+                            sx={{
+                                borderRadius: '.5rem',
+                                '& .MuiButtonBase-root': { width: '100%' },
+                            }}
                         >
                             <ListItemIcon>
-                                <Icon sx={{ color: theme.palette.primary.contrastText }}>
+                                <PeopleIcon
+                                    sx={{ color: theme.palette.primary.contrastText }}
+                                >
                                     people_filled
-                                </Icon>
+                                </PeopleIcon>
                             </ListItemIcon>
                             <ListItemText primary='Empleados' />
                         </ListItemButton>
                     </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            component={Link}
+                            href='/contratos'
+                            sx={SidebarNavigationItemButtonStyles}
+                        >
+                            <ListItemIcon>
+                                <ArticleIcon sx={{ color: 'primary.contrastText' }} />
+                            </ListItemIcon>
+                            <ListItemText primary='Contratos' />
+                        </ListItemButton>
+                    </ListItem>
                 </List>
-            </nav>
+            </Box>
             <Paper
                 variant='outlined'
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
+                    width: '100%',
                     marginBlock: 'auto 1.5rem',
                     bgcolor: theme.palette.primary.light,
                     borderColor: theme.palette.primary.light,
@@ -107,6 +111,19 @@ function Sidebar(props: SidebarProps) {
                     Elegir otro cliente
                 </Button>
             </Paper>
+            <Button
+                variant='text'
+                onClick={() => setOpen(false)}
+                sx={{
+                    display: { xs: 'inherit', md: 'none' },
+                    width: '100%',
+                    color: theme.palette.primary.contrastText,
+                    padding: '1rem',
+                    marginBottom: '1.5rem',
+                }}
+            >
+                Cerrar menú
+            </Button>
         </Drawer>
     );
 }

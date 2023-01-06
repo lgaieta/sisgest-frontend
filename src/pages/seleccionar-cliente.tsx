@@ -1,63 +1,38 @@
-import {
-    TableRow,
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-} from '@mui/material';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Dispatch, SetStateAction } from 'react';
-import Main from '../layouts/Main';
+import Content from '../layouts/content/Content';
+import Header from '../layouts/header/Header';
+import Main from '../layouts/main/Main';
+import { SidebarProps } from '../layouts/sidebar/Sidebar';
+import SelectClientTable from '../pages-content/seleccionar-cliente/layouts/SelectClientTable';
 
 const ClientExamples = ['Intel', 'CRSSCH', 'Aieta Consulting'];
 
-type SelectClientProps = {
-    setClient: Dispatch<SetStateAction<string | null>>;
-};
-
-function SelectClient(props: SelectClientProps) {
-    const { setClient } = props;
+function SelectClient({ sidebarProps }: { sidebarProps: SidebarProps }) {
     const router = useRouter();
 
     return (
-        <>
+        <Main sx={{ gridTemplateAreas: "'header header' 'content content'" }}>
             <Head>
                 <title>Seleccionar cliente - SisGest</title>
             </Head>
-            <Main title='Seleccione un cliente - SisGest' fullWidth>
-                <TableContainer component={Paper} variant='outlined'>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Empresa</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {ClientExamples.map(client => (
-                                <TableRow
-                                    sx={{
-                                        cursor: 'pointer',
-                                        textDecoration: 'none',
-                                        '&:hover': { bgcolor: '#F3F3F3' },
-                                    }}
-                                    onClick={() => {
-                                        setClient(client);
-                                        router.push('/');
-                                    }}
-                                    key={client}
-                                >
-                                    <TableCell>{client}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </Main>
-        </>
+            <Header
+                title='Seleccione un cliente - SisGest'
+                onMenuIconClick={() => {
+                    return;
+                }}
+                hideMenuIcon
+            />
+            <Content>
+                <SelectClientTable
+                    clients={ClientExamples}
+                    onRowClick={client => {
+                        sidebarProps.setClient(client);
+                        router.push('/');
+                    }}
+                />
+            </Content>
+        </Main>
     );
 }
 
