@@ -5,12 +5,11 @@ const Container = ({ children }: { children: ReactNode }) => {
     return (
         <Box
             sx={{
-                position: 'absolute',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 height: '90%',
-                width: '80%',
+                width: '100%',
             }}
         >
             {children}
@@ -33,7 +32,7 @@ const Form = ({
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1rem',
-                width: '40%',
+                width: { xs: '100%', sm: '70%', md: '40%' },
             }}
         >
             {children}

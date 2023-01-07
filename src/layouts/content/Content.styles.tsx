@@ -6,4 +6,5 @@ export const ContentStyles: SxProps<Theme> = {
     height: '100%',
     gridArea: 'content',
     padding: '1.5rem',
+    boxSizing: 'border-box',
 };

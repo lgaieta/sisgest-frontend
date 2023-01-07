@@ -10,7 +10,14 @@ const { Container } = CreateEmployeeLayout;
 
 function CreateEmployeePage({ sidebarProps }: { sidebarProps: SidebarProps }) {
     return (
-        <Main sx={{ gridTemplateAreas: "'sidebar content' 'sidebar content'" }}>
+        <Main
+            sx={{
+                gridTemplateAreas: {
+                    xs: "'content content' 'content content'",
+                    md: "'sidebar content' 'sidebar content'",
+                },
+            }}
+        >
             <Head>
                 <title>Crear empleado - SisGest</title>
             </Head>
