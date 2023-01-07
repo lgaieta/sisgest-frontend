@@ -27,11 +27,11 @@ export function useLocalStorageState<State>({
     useEffect(() => {
         const stored = localStorage.getItem(key);
         setValue(stored ? getItemCallback(stored) : fallbackValue);
-    }, [fallbackValue, key]);
+    }, [fallbackValue, key, getItemCallback]);
 
     useEffect(() => {
         if (value !== fallbackValue) localStorage.setItem(key, setItemCallback(value));
-    }, [fallbackValue, key, value]);
+    }, [fallbackValue, key, value, setItemCallback]);
 
     return [value, setValue] as const;
 }

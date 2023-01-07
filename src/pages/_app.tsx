@@ -1,5 +1,4 @@
-import { Box, CssBaseline, ThemeProvider } from '@mui/material';
-import { useRouter } from 'next/router';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { QueryClient, QueryClientProvider } from 'react-query';

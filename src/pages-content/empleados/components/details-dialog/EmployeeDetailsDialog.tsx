@@ -55,7 +55,7 @@ function EmployeeDetailsDialog(props: EmployeeDetailsDialogProps) {
                 <DialogContent dividers>
                     <Box sx={DetailsContainerStyles}>
                         {tags.map(([tag, key]) => (
-                            <Box>
+                            <Box key={tag}>
                                 <Typography
                                     variant='subtitle1'
                                     sx={{ fontWeight: '700' }}
