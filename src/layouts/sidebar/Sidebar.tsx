@@ -9,7 +9,6 @@ import {
     Button,
     Paper,
     Box,
-    useTheme,
 } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
 import Link from 'next/link';
@@ -20,6 +19,7 @@ import {
     SidebarNavigationItemButtonStyles,
     SidebarTitleStyles,
 } from './Sidebar.styles';
+import { useTheme } from '@mui/material/styles';
 
 export type SidebarProps = {
     client: string | null;

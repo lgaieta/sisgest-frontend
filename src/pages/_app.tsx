@@ -1,9 +1,10 @@
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline } from '@mui/material';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import SisGestTheme from '../utils/SisGestTheme';
 import useSidebar from '../hooks/useSidebar';
+import { ThemeProvider } from '@mui/material/styles';
 
 const queryClient = new QueryClient();
 

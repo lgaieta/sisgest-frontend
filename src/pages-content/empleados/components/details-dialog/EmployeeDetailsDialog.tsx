@@ -38,9 +38,9 @@ function EmployeeDetailsDialog(props: EmployeeDetailsDialogProps) {
         tags,
     } = props;
 
-    const { register, handleSubmit } = useForm<typeof employee>();
+    const { register, handleSubmit } = useForm<Employee>();
     const [isEditable, setIsEditable] = useState<boolean>(false);
-    const editInputRef = useRef(null);
+    const editInputRef = useRef<HTMLInputElement>(null);
 
     if (!employee) return null;
 
@@ -84,7 +84,8 @@ function EmployeeDetailsDialog(props: EmployeeDetailsDialogProps) {
                         variant='outlined'
                         onClick={() => {
                             if (onEditButtonClick) onEditButtonClick();
-                            if (isEditable) editInputRef?.current.click();
+                            if (isEditable && editInputRef.current)
+                                editInputRef?.current.click();
                             setIsEditable(prev => !prev);
                         }}
                     >

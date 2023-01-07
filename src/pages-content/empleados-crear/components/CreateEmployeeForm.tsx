@@ -25,9 +25,13 @@ function CreateEmployeeForm() {
             </Button>
             {formState.errors ? (
                 <>
-                    {Object.keys(formState.errors).map(errorName => (
+                    {(
+                        Object.keys(formState.errors) as Array<
+                            keyof typeof formState.errors
+                        >
+                    ).map(errorName => (
                         <ErrorMessage key={errorName}>
-                            {formState.errors[errorName].message as string}
+                            {formState.errors[errorName]?.message}
                         </ErrorMessage>
                     ))}
                 </>
