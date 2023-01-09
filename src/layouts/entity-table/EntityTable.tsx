@@ -76,4 +76,9 @@ function EntityTable<
     );
 }
 
+export type EntityTableType<
+    Entity extends BaseEntity<IdKey>,
+    IdKey extends string | number | symbol
+> = typeof EntityTable<Entity, IdKey>;
+
 export default EntityTable;

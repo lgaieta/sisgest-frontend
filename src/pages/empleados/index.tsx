@@ -9,9 +9,12 @@ import useEmployee from '../../pages-content/empleados/hooks/useEmployee';
 import EmployeeHeader from '../../pages-content/empleados/layouts/EmployeeHeader';
 import Sidebar, { SidebarProps } from '../../layouts/sidebar/Sidebar';
 import Content from '../../layouts/content/Content';
+import { EntityTableType } from '../../layouts/entity-table/EntityTable';
 import Employee from '../../entities/Employee.entity';
 
-const EntityTable = lazy(() => import('../../layouts/entity-table/EntityTable'));
+const EntityTable = lazy<EntityTableType<Employee, 'id'>>(
+    () => import('../../layouts/entity-table/EntityTable')
+);
 const ErrorMessage = lazy(() => import('../../components/ErrorMessage'));
 const Snackbar = lazy(() => import('@mui/material/Snackbar'));
 const EmployeeDetailsDialog = lazy(
@@ -59,7 +62,7 @@ function EmployeesPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
                             </ErrorMessage>
                         )}
                         {employeesList && (
-                            <EntityTable<Employee, 'id'>
+                            <EntityTable
                                 idKey='id'
                                 tags={EmployeeListTagsWithKeys}
                                 entities={employeesList}
