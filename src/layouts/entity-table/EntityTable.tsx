@@ -9,17 +9,29 @@ import {
     Tooltip,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Employee from '../../../entities/Employee.entity';
 
-type EmployeesTableProps = {
-    employees: Employee[];
-    tags: [string, keyof Employee][];
-    onDeleteEmployee: (id: Employee['id']) => void;
-    onRowClick: (employee: Employee) => void;
+type BaseEntity<PrimaryKey extends string | number | symbol> = Record<
+    PrimaryKey,
+    string | number
+>;
+
+type EntityTableProps<
+    Entity extends BaseEntity<IdKey>,
+    IdKey extends string | number | symbol
+> = {
+    entities: Entity[];
+    tags: [string, keyof Entity][];
+    onDeleteEntity: (entity: Entity) => void;
+    onRowClick: (entity: Entity) => void;
+    /** Name of primary key property */
+    idKey: IdKey;
 };
 
-function EmployeesTable(props: EmployeesTableProps) {
-    const { employees, onDeleteEmployee, onRowClick, tags } = props;
+function EntityTable<
+    Entity extends BaseEntity<IdKey>,
+    IdKey extends string | number | symbol
+>(props: EntityTableProps<Entity, IdKey>) {
+    const { entities, onDeleteEntity, onRowClick, tags, idKey } = props;
 
     return (
         <TableContainer component={Paper} variant='outlined'>
@@ -33,23 +45,25 @@ function EmployeesTable(props: EmployeesTableProps) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {employees.map(employee => (
+                    {entities.map(entity => (
                         <TableRow
-                            key={employee.id}
-                            onClick={() => onRowClick(employee)}
+                            key={entity[idKey]}
+                            onClick={() => onRowClick(entity)}
                             sx={{
                                 '&:hover': { bgcolor: '#F3F3F3' },
                             }}
                         >
-                            {tags.map(([, key]) => (
-                                <TableCell key={employee[key]}>{employee[key]}</TableCell>
+                            {tags.map(([tag, key]) => (
+                                <TableCell key={tag + entity[idKey]}>
+                                    {entity[key]}
+                                </TableCell>
                             ))}
                             <TableCell>
                                 <Tooltip title='Borrar'>
                                     <DeleteIcon
                                         onClick={e => {
                                             e.stopPropagation();
-                                            onDeleteEmployee(employee.id);
+                                            onDeleteEntity(entity);
                                         }}
                                     />
                                 </Tooltip>
@@ -62,4 +76,4 @@ function EmployeesTable(props: EmployeesTableProps) {
     );
 }
 
-export default EmployeesTable;
+export default EntityTable;

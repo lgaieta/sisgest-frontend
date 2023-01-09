@@ -9,10 +9,9 @@ import useEmployee from '../../pages-content/empleados/hooks/useEmployee';
 import EmployeeHeader from '../../pages-content/empleados/layouts/EmployeeHeader';
 import Sidebar, { SidebarProps } from '../../layouts/sidebar/Sidebar';
 import Content from '../../layouts/content/Content';
+import Employee from '../../entities/Employee.entity';
 
-const EmployeesTable = lazy(
-    () => import('../../pages-content/empleados/components/EmployeesTable')
-);
+const EntityTable = lazy(() => import('../../layouts/entity-table/EntityTable'));
 const ErrorMessage = lazy(() => import('../../components/ErrorMessage'));
 const Snackbar = lazy(() => import('@mui/material/Snackbar'));
 const EmployeeDetailsDialog = lazy(
@@ -60,11 +59,12 @@ function EmployeesPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
                             </ErrorMessage>
                         )}
                         {employeesList && (
-                            <EmployeesTable
+                            <EntityTable<Employee, 'id'>
+                                idKey='id'
                                 tags={EmployeeListTagsWithKeys}
-                                employees={employeesList}
-                                onDeleteEmployee={id => {
-                                    deleteEmployee(id, {
+                                entities={employeesList}
+                                onDeleteEntity={employee => {
+                                    deleteEmployee(employee.id, {
                                         onSuccess: () => {
                                             refetch();
                                             setSnackbarMessage(
