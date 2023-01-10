@@ -4,7 +4,7 @@ import { lazy, Suspense } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import EmployeeListTagsWithKeys from '../../pages-content/empleados/utils/EmployeeListTagsWithKeys';
 import Head from 'next/head';
-import LoadingSpinner from '../../pages-content/empleados/components/EmployeeLoadingSpinner';
+import LoadingSpinner from '../../components/LoadingSpinner';
 import useEmployee from '../../pages-content/empleados/hooks/useEmployee';
 import EmployeeHeader from '../../pages-content/empleados/layouts/EmployeeHeader';
 import Sidebar, { SidebarProps } from '../../layouts/sidebar/Sidebar';
