@@ -1,3 +1,4 @@
+import { Snackbar, IconButton } from '@mui/material';
 import Head from 'next/head';
 import { Suspense } from 'react';
 import ErrorMessage from '../../components/ErrorMessage';
@@ -10,9 +11,32 @@ import Main from '../../layouts/main/Main';
 import Sidebar, { SidebarProps } from '../../layouts/sidebar/Sidebar';
 import useContract from '../../pages-content/contratos/hooks/useContract';
 import ContractListTagsWithKeys from '../../pages-content/contratos/utils/ContractListTagsWithKeys';
+import CloseIcon from '@mui/icons-material/Close';
+import EntityDetailsDialog from '../../layouts/entity-details-dialog/EntityDetailsDialog';
 
 function ContractsPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
-    const { contractsList, isLoading, isError } = useContract();
+    const {
+        contractsList,
+        isLoading,
+        isError,
+        deleteContract,
+        refetch,
+        snackbarMessage,
+        setSnackbarMessage,
+        isContractDetails,
+        setIsContractDetails,
+        selectedContract,
+        setSelectedContract,
+    } = useContract();
+
+    const handleDeleteContract = (contract: Contract) =>
+        deleteContract(contract, {
+            onSuccess: () => {
+                refetch();
+                setSnackbarMessage('Contrato borrado correctamente');
+                setTimeout(() => setSnackbarMessage(false), 4000);
+            },
+        });
 
     return (
         <Main>
@@ -40,17 +64,48 @@ function ContractsPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
                                 idKey='id'
                                 tags={ContractListTagsWithKeys}
                                 entities={contractsList}
-                                onDeleteEntity={contract => {
-                                    console.log('Contrato borrado');
-                                }}
+                                onDeleteEntity={handleDeleteContract}
                                 onRowClick={contract => {
-                                    console.log('Modal abierto');
+                                    setIsContractDetails(true);
+                                    setSelectedContract(contract);
                                 }}
                             />
                         )}
                     </Suspense>
                 )}
             </Content>
+            {isContractDetails && (
+                <Suspense>
+                    <EntityDetailsDialog<Contract>
+                        title={contract => contract.id}
+                        isOpen={isContractDetails}
+                        tags={ContractListTagsWithKeys}
+                        entity={selectedContract}
+                        onEditButtonClick={() => null}
+                        onDeleteButtonClick={handleDeleteContract}
+                        onCloseButtonClick={() => setIsContractDetails(false)}
+                        onDialogClose={() => setIsContractDetails(false)}
+                        onFormSubmit={contract => console.log(contract)}
+                    />
+                </Suspense>
+            )}
+            <Suspense>
+                <Snackbar
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    open={!(snackbarMessage === false)}
+                    message={snackbarMessage || ''}
+                    action={
+                        <IconButton
+                            size='small'
+                            aria-label='close'
+                            color='inherit'
+                            onClick={() => setSnackbarMessage(false)}
+                        >
+                            <CloseIcon fontSize='small' />
+                        </IconButton>
+                    }
+                />
+            </Suspense>
         </Main>
     );
 }
