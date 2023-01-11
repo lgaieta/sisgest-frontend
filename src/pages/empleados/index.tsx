@@ -101,7 +101,7 @@ function EmployeesPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
                             isOpen={isEmployeeDetails}
                             tags={EmployeeListTagsWithKeys}
                             entity={selectedEmployee}
-                            onEditButtonClick={() => console.log('editado')}
+                            onEditButtonClick={() => null}
                             onDeleteButtonClick={handleDeleteEmployee}
                             onCloseButtonClick={() => setIsEmployeeDetails(false)}
                             onDialogClose={() => setIsEmployeeDetails(false)}
