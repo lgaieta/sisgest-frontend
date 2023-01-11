@@ -11,17 +11,15 @@ import Sidebar, { SidebarProps } from '../../layouts/sidebar/Sidebar';
 import Content from '../../layouts/content/Content';
 import { EntityTableType } from '../../layouts/entity-table/EntityTable';
 import Employee from '../../entities/Employee.entity';
+import type { EntityDetailsDialogType } from '../../layouts/entity-details-dialog/EntityDetailsDialog';
 
 const EntityTable = lazy<EntityTableType<Employee, 'id'>>(
     () => import('../../layouts/entity-table/EntityTable')
 );
 const ErrorMessage = lazy(() => import('../../components/ErrorMessage'));
 const Snackbar = lazy(() => import('@mui/material/Snackbar'));
-const EmployeeDetailsDialog = lazy(
-    () =>
-        import(
-            '../../pages-content/empleados/components/details-dialog/EmployeeDetailsDialog'
-        )
+const EntityDetailsDialog = lazy<EntityDetailsDialogType<Employee>>(
+    () => import('../../layouts/entity-details-dialog/EntityDetailsDialog')
 );
 
 function EmployeesPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
@@ -39,6 +37,27 @@ function EmployeesPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
         setSelectedEmployee,
         updateEmployee,
     } = useEmployee();
+
+    const handleUpdateEmployee = (employee: Employee) => {
+        updateEmployee(employee, {
+            onSuccess: () => {
+                refetch();
+                setSelectedEmployee(employee);
+                setSnackbarMessage('Empleado actualizado correctamente');
+                setTimeout(() => setSnackbarMessage(false), 4000);
+            },
+        });
+    };
+
+    const handleDeleteEmployee = (employee: Employee) =>
+        deleteEmployee(employee.id, {
+            onSuccess: () => {
+                refetch();
+                setSnackbarMessage('Empleado borrado correctamente.');
+                setIsEmployeeDetails(false);
+                setTimeout(() => setSnackbarMessage(false), 4000);
+            },
+        });
 
     return (
         <Main>
@@ -66,20 +85,7 @@ function EmployeesPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
                                 idKey='id'
                                 tags={EmployeeListTagsWithKeys}
                                 entities={employeesList}
-                                onDeleteEntity={employee => {
-                                    deleteEmployee(employee.id, {
-                                        onSuccess: () => {
-                                            refetch();
-                                            setSnackbarMessage(
-                                                'Empleado borrado correctamente.'
-                                            );
-                                            setTimeout(
-                                                () => setSnackbarMessage(false),
-                                                4000
-                                            );
-                                        },
-                                    });
-                                }}
+                                onDeleteEntity={handleDeleteEmployee}
                                 onRowClick={employee => {
                                     setSelectedEmployee(employee);
                                     setIsEmployeeDetails(true);
@@ -90,37 +96,16 @@ function EmployeesPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
                 )}
                 {isEmployeeDetails && (
                     <Suspense>
-                        <EmployeeDetailsDialog
+                        <EntityDetailsDialog
+                            title={employee => employee.names}
                             isOpen={isEmployeeDetails}
                             tags={EmployeeListTagsWithKeys}
-                            employee={selectedEmployee}
+                            entity={selectedEmployee}
                             onEditButtonClick={() => console.log('editado')}
-                            onDeleteButtonClick={id => {
-                                deleteEmployee(id, {
-                                    onSuccess: () => {
-                                        refetch();
-                                        setSnackbarMessage(
-                                            'Empleado borrado correctamente.'
-                                        );
-                                        setIsEmployeeDetails(false);
-                                        setTimeout(() => setSnackbarMessage(false), 4000);
-                                    },
-                                });
-                            }}
+                            onDeleteButtonClick={handleDeleteEmployee}
                             onCloseButtonClick={() => setIsEmployeeDetails(false)}
                             onDialogClose={() => setIsEmployeeDetails(false)}
-                            onFormSubmit={employee => {
-                                updateEmployee(employee, {
-                                    onSuccess: () => {
-                                        refetch();
-                                        setSelectedEmployee(employee);
-                                        setSnackbarMessage(
-                                            'Empleado actualizado correctamente'
-                                        );
-                                        setTimeout(() => setSnackbarMessage(false), 4000);
-                                    },
-                                });
-                            }}
+                            onFormSubmit={handleUpdateEmployee}
                         />
                     </Suspense>
                 )}
