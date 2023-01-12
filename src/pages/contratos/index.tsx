@@ -27,6 +27,7 @@ function ContractsPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
         setIsContractDetails,
         selectedContract,
         setSelectedContract,
+        updateContract,
     } = useContract();
 
     const handleDeleteContract = (contract: Contract) =>
@@ -37,6 +38,17 @@ function ContractsPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
                 setTimeout(() => setSnackbarMessage(false), 4000);
             },
         });
+
+    const handleUpdateContract = (contract: Contract) => {
+        updateContract(contract, {
+            onSuccess: () => {
+                refetch();
+                setSelectedContract(contract);
+                setSnackbarMessage('Contrato actualizado correctamente');
+                setTimeout(() => setSnackbarMessage(false), 4000);
+            },
+        });
+    };
 
     return (
         <Main>
@@ -85,7 +97,7 @@ function ContractsPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
                         onDeleteButtonClick={handleDeleteContract}
                         onCloseButtonClick={() => setIsContractDetails(false)}
                         onDialogClose={() => setIsContractDetails(false)}
-                        onFormSubmit={contract => console.log(contract)}
+                        onFormSubmit={handleUpdateContract}
                     />
                 </Suspense>
             )}
