@@ -6,13 +6,13 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import Contract from '../../entities/Contract.entity';
 import Content from '../../layouts/content/Content';
 import EntityTable from '../../layouts/entity-table/EntityTable';
-import Header from '../../layouts/header/Header';
 import Main from '../../layouts/main/Main';
 import Sidebar, { SidebarProps } from '../../layouts/sidebar/Sidebar';
 import useContract from '../../pages-content/contratos/hooks/useContract';
 import ContractListTagsWithKeys from '../../pages-content/contratos/utils/ContractListTagsWithKeys';
 import CloseIcon from '@mui/icons-material/Close';
 import EntityDetailsDialog from '../../layouts/entity-details-dialog/EntityDetailsDialog';
+import ContractHeader from '../../pages-content/contratos/layout/ContractHeader';
 
 function ContractsPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
     const {
@@ -55,9 +55,9 @@ function ContractsPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
             <Head>
                 <title>Contratos - SisGest</title>
             </Head>
-            <Header
-                title='Contratos'
+            <ContractHeader
                 onMenuIconClick={() => sidebarProps.setOpen(true)}
+                onReplayIconClick={refetch}
             />
             <Sidebar {...sidebarProps} />
             <Content>
