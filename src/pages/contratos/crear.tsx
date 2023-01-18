@@ -3,6 +3,8 @@ import Sidebar, { SidebarProps } from '../../layouts/sidebar/Sidebar';
 import MenuIcon from '@mui/icons-material/Menu';
 import Head from 'next/head';
 import Content from '../../layouts/content/Content';
+import { Typography } from '@mui/material';
+import CreateContractForm from '../../pages-content/contratos-crear/layout/CreateContractForm';
 
 function CreateContract({ sidebarProps }: { sidebarProps: SidebarProps }) {
     return (
@@ -27,7 +29,16 @@ function CreateContract({ sidebarProps }: { sidebarProps: SidebarProps }) {
                     right: '1rem',
                 }}
             />
-            <Content>Crear contrato</Content>
+            <Content>
+                <Typography
+                    variant='h4'
+                    component='h1'
+                    sx={{ fontWeight: '700', pt: { xs: 4, md: 0 } }}
+                >
+                    Crear contrato
+                </Typography>
+                <CreateContractForm />
+            </Content>
         </Main>
     );
 }
