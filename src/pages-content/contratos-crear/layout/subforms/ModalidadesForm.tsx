@@ -38,6 +38,7 @@ function ModalidadesForm(props: StepFormProps) {
                     label='Clase de Trabajo a Realizar'
                     labelId='ClaseDeTrabajoARealizarLabel'
                     defaultValue='1'
+                    autoFocus
                 >
                     <MenuItem value='1'>Opcion 1</MenuItem>
                 </CreateContractSelect>

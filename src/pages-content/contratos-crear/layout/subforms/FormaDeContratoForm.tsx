@@ -38,6 +38,7 @@ function FormaDeContratoForm(props: StepFormProps) {
                     label='Forma de Contrato'
                     labelId='FormaDeContratoLabel'
                     defaultValue='1'
+                    autoFocus
                 >
                     <MenuItem value='1'>Opcion 1</MenuItem>
                 </CreateContractSelect>
