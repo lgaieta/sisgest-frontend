@@ -35,7 +35,7 @@ function CreateContractSelect(props: CreateContractSelectProps) {
 
     useEffect(() => {
         if (autoFocus && inputRef.current !== null) inputRef.current.focus();
-    });
+    }, [autoFocus]);
 
     return (
         <Grid item xs={2} lg={1} {...gridProps}>
