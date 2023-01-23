@@ -43,6 +43,7 @@ function MaterialesForm(props: StepFormProps) {
                     name='cantidadMaterialesEmpleador'
                     control={control}
                     label='Cantidad'
+                    autoFocus
                 />
                 <CreateContractTextField
                     name='calidadMaterialesEmpleador'

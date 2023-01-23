@@ -32,6 +32,7 @@ function PersonalizadoForm(props: StepFormProps) {
                     name='camposAMano'
                     control={control}
                     label='Cargo'
+                    autoFocus
                 />
                 <CreateContractTextField
                     name='observacionesCamposAMano'

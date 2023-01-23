@@ -35,6 +35,7 @@ function RemuneracionConvenidaForm(props: StepFormProps) {
                     control={control}
                     label='Periodo Ordinario de Pago'
                     defaultValue='1'
+                    autoFocus
                 />
                 <CreateContractTextField
                     name='fechaAsignada'

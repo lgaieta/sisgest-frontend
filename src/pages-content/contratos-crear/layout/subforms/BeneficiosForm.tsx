@@ -34,6 +34,7 @@ function BeneficiosForm(props: StepFormProps) {
                     name='alimentacionGs'
                     control={control}
                     label='Alimentación Gs.'
+                    autoFocus
                 />
                 <CreateContractTextField
                     name='habilitacionGs'
