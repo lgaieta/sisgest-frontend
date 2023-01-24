@@ -1,6 +1,8 @@
-import { Stack, Stepper, Step, StepLabel } from '@mui/material';
-import { FC, useState, useEffect } from 'react';
+import { Stack, Stepper, Step, StepLabel, Snackbar } from '@mui/material';
+import { useRouter } from 'next/router';
+import { FC, useState } from 'react';
 import Contract from '../../../entities/Contract.entity';
+import useCreateContract from '../hooks/useCreateContract';
 import BeneficiosForm from './subforms/BeneficiosForm';
 import FormaDeContratoForm from './subforms/FormaDeContratoForm';
 import LaJornadaForm from './subforms/LaJornadaForm';
@@ -28,7 +30,12 @@ const steps: [string, FC<StepFormProps>][] = [
 
 function CreateContractForm() {
     const [activeStep, setActiveStep] = useState<number>(0);
-    const [contract, setContract] = useState<Partial<Contract>>({});
+    const [contract, setContract] = useState<Partial<Contract>>({ id_empleado: 10 });
+    const { mutate: createContract } = useCreateContract({
+        onMutate: () => setIsSnackbarOpen(true),
+    });
+    const [isSnackbarOpen, setIsSnackbarOpen] = useState<boolean>(false);
+    const router = useRouter();
 
     const StepForm = steps[activeStep][1];
 
@@ -49,9 +56,18 @@ function CreateContractForm() {
                 onFormSubmit={(formData: Partial<Contract>) => {
                     setContract(currentContract => ({ ...currentContract, ...formData }));
                     setActiveStep(prev => (prev < 7 ? prev + 1 : prev));
-                    if (activeStep === 7) console.log('Push', contract);
+                    if (activeStep === 7)
+                        createContract(contract as Contract, {
+                            onSuccess: () => router.push('/contratos'),
+                        });
                 }}
                 onReturnButtonClick={() => setActiveStep(prev => prev - 1)}
+            />
+            <Snackbar
+                open={isSnackbarOpen}
+                onClose={() => setIsSnackbarOpen(false)}
+                message='Creando contrato...'
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             />
         </Stack>
     );
