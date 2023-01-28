@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { useController, UseControllerProps } from 'react-hook-form';
 import Contract from '../../../entities/Contract.entity';
 
-type CreateContractTextFieldProps = Omit<TextFieldProps, 'ref'> &
+type CreateContractTextFieldProps = TextFieldProps &
     UseControllerProps<Partial<Contract>> & {
         gridProps?: GridProps;
         autoFocus?: boolean;
