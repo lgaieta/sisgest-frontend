@@ -10,7 +10,10 @@ import CreateContractButtonsContainer from '../../components/CreateContractButto
 import CreateContractContainer from '../../components/CreateContractContainer';
 import CreateContractDivider from '../../components/CreateContractDivider';
 import CreateContractSelect from '../../components/CreateContractSelect';
-import CreateContractTextField from '../../components/CreateContractTextField';
+import {
+    CreateContractTextField,
+    CreateContractNumberField,
+} from '../../components/CreateContractField';
 import { stringValidateSchema, numberValidateSchema } from '../../utils/InputSchemas';
 import { StepFormProps } from '../CreateContractForm';
 
@@ -20,11 +23,11 @@ const schema = z.object({
     observacionesFormaContrato: stringValidateSchema,
 });
 
-type FormInputs = z.infer<typeof schema>;
+type FormValues = z.infer<typeof schema>;
 
 function FormaDeContratoForm(props: StepFormProps) {
     const { onReturnButtonClick, onFormSubmit } = props;
-    const { control, handleSubmit } = useForm<FormInputs>({
+    const { control, handleSubmit } = useForm<FormValues>({
         resolver: zodResolver(schema),
     });
 
@@ -42,14 +45,14 @@ function FormaDeContratoForm(props: StepFormProps) {
                 >
                     <MenuItem value='1'>Opcion 1</MenuItem>
                 </CreateContractSelect>
-                <CreateContractTextField
+                <CreateContractNumberField<FormValues>
                     name='periodoPrueba'
                     control={control}
                     type='number'
                     label='Período de Prueba (en días)'
                     defaultValue={1}
                 />
-                <CreateContractTextField
+                <CreateContractTextField<FormValues>
                     name='observacionesFormaContrato'
                     control={control}
                     label='Observaciones'

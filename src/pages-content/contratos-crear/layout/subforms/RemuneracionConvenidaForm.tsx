@@ -1,7 +1,10 @@
 import { StepFormProps } from '../CreateContractForm';
 import CreateContractContainer from '../../components/CreateContractContainer';
 import CreateContractDivider from '../../components/CreateContractDivider';
-import CreateContractTextField from '../../components/CreateContractTextField';
+import {
+    CreateContractTextField,
+    CreateContractNumberField,
+} from '../../components/CreateContractField';
 import { useForm } from 'react-hook-form';
 import CreateContractButtonsContainer from '../../components/CreateContractButtonsContainer';
 import { CreateContractContinueButton } from '../../components/CreateContractButton';
@@ -44,28 +47,28 @@ function RemuneracionConvenidaForm(props: StepFormProps) {
                     defaultValue='1'
                 />
                 <CreateContractDivider>Monto del Sueldo</CreateContractDivider>
-                <CreateContractTextField
+                <CreateContractNumberField
                     name='montoSueldoMensual'
                     control={control}
                     type='number'
                     label='Monto Sueldo Mensual'
                     defaultValue={1}
                 />
-                <CreateContractTextField
+                <CreateContractNumberField
                     name='diasCalculoJornal'
                     control={control}
                     type='number'
                     label='Días para el Cálculo de Jornal'
                     defaultValue={1}
                 />
-                <CreateContractTextField
+                <CreateContractNumberField
                     name='montoJornalDiario'
                     control={control}
                     type='number'
                     label='Monto Jornal Diario'
                     defaultValue={1}
                 />
-                <CreateContractTextField
+                <CreateContractNumberField
                     name='montoPorHora'
                     control={control}
                     type='number'

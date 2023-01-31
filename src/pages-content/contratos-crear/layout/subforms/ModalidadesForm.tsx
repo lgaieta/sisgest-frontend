@@ -5,7 +5,7 @@ import {
     CreateContractContinueButton,
     CreateContractReturnButton,
 } from '../../components/CreateContractButton';
-import CreateContractTextField from '../../components/CreateContractTextField';
+import { CreateContractTextField } from '../../components/CreateContractField';
 import CreateContractButtonsContainer from '../../components/CreateContractButtonsContainer';
 import CreateContractSelect from '../../components/CreateContractSelect';
 import { MenuItem } from '@mui/material';
@@ -20,11 +20,11 @@ const schema = z.object({
     lugarPrestacionPersonalizado: z.optional(z.string()),
 });
 
-type FormInputs = z.infer<typeof schema>;
+type FormValues = z.infer<typeof schema>;
 
 function ModalidadesForm(props: StepFormProps) {
     const { onReturnButtonClick, onFormSubmit } = props;
-    const { handleSubmit, control } = useForm<FormInputs>({
+    const { handleSubmit, control } = useForm<FormValues>({
         resolver: zodResolver(schema),
     });
 
@@ -51,7 +51,7 @@ function ModalidadesForm(props: StepFormProps) {
                 >
                     <MenuItem value='1'>Opcion 1</MenuItem>
                 </CreateContractSelect>
-                <CreateContractTextField
+                <CreateContractTextField<FormValues>
                     name='lugarPrestacionPersonalizado'
                     control={control}
                     label='Lugar de Prestación Personalizado'

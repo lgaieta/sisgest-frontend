@@ -8,7 +8,7 @@ import CreateContractDivider from '../../components/CreateContractDivider';
 import CreateContractRadioGroup, {
     CreateContractRadioItem,
 } from '../../components/CreateContractRadioGroup';
-import CreateContractTextField from '../../components/CreateContractTextField';
+import { CreateContractNumberField } from '../../components/CreateContractField';
 import { StepFormProps } from '../CreateContractForm';
 import { stringValidateSchema, numberValidateSchema } from '../../utils/InputSchemas';
 import { z } from 'zod';
@@ -27,11 +27,11 @@ const schema = z.object({
     horarioDomingosHasta: numberValidateSchema,
 });
 
-type FormInputs = z.infer<typeof schema>;
+type FormValues = z.infer<typeof schema>;
 
 function LaJornadaForm(props: StepFormProps) {
     const { onReturnButtonClick, onFormSubmit } = props;
-    const { handleSubmit, control } = useForm<FormInputs>({
+    const { handleSubmit, control } = useForm<FormValues>({
         resolver: zodResolver(schema),
     });
 
@@ -47,52 +47,52 @@ function LaJornadaForm(props: StepFormProps) {
                 </CreateContractRadioGroup>
 
                 <CreateContractDivider>Horario por la mañana</CreateContractDivider>
-                <CreateContractTextField
+                <CreateContractNumberField<FormValues>
                     name='horarioMañanaDesde'
                     control={control}
                     label='Desde'
                     type='number'
                 />
-                <CreateContractTextField
+                <CreateContractNumberField<FormValues>
                     name='horarioMañanaHasta'
                     control={control}
                     label='Hasta'
                     type='number'
                 />
                 <CreateContractDivider>Horario por la tarde</CreateContractDivider>
-                <CreateContractTextField
+                <CreateContractNumberField<FormValues>
                     name='horarioTardeDesde'
                     control={control}
                     label='Desde'
                     type='number'
                 />
-                <CreateContractTextField
+                <CreateContractNumberField<FormValues>
                     name='horarioTardeHasta'
                     control={control}
                     label='Hasta'
                     type='number'
                 />
                 <CreateContractDivider>Horario los sábados</CreateContractDivider>
-                <CreateContractTextField
+                <CreateContractNumberField<FormValues>
                     name='horarioSabadosDesde'
                     control={control}
                     label='Desde'
                     type='number'
                 />
-                <CreateContractTextField
+                <CreateContractNumberField<FormValues>
                     name='horarioSabadosHasta'
                     control={control}
                     label='Hasta'
                     type='number'
                 />
                 <CreateContractDivider>Horario los domingos</CreateContractDivider>
-                <CreateContractTextField
+                <CreateContractNumberField<FormValues>
                     name='horarioDomingosDesde'
                     control={control}
                     label='Desde'
                     type='number'
                 />
-                <CreateContractTextField
+                <CreateContractNumberField<FormValues>
                     name='horarioDomingosHasta'
                     control={control}
                     label='Hasta'

@@ -22,11 +22,11 @@ const schema = z.object({
     fechaIngresoEmpresa: stringValidateSchema,
 });
 
-type FormInputs = z.infer<typeof schema>;
+type FormValues = z.infer<typeof schema>;
 
 function PlazoDelContratoForm(props: StepFormProps) {
     const { onReturnButtonClick, onFormSubmit } = props;
-    const { handleSubmit, control } = useForm<FormInputs>({
+    const { handleSubmit, control } = useForm<FormValues>({
         resolver: zodResolver(schema),
     });
 

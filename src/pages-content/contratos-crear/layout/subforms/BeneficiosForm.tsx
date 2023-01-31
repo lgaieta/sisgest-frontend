@@ -5,7 +5,7 @@ import {
 import CreateContractButtonsContainer from '../../components/CreateContractButtonsContainer';
 import CreateContractContainer from '../../components/CreateContractContainer';
 import CreateContractDivider from '../../components/CreateContractDivider';
-import CreateContractTextField from '../../components/CreateContractTextField';
+import { CreateContractTextField } from '../../components/CreateContractField';
 import { StepFormProps } from '../CreateContractForm';
 import { stringValidateSchema } from '../../utils/InputSchemas';
 import { z } from 'zod';
@@ -18,11 +18,11 @@ const schema = z.object({
     uniformeGs: stringValidateSchema,
 });
 
-type FormInputs = z.infer<typeof schema>;
+type FormValues = z.infer<typeof schema>;
 
 function BeneficiosForm(props: StepFormProps) {
     const { onReturnButtonClick, onFormSubmit } = props;
-    const { handleSubmit, control } = useForm<FormInputs>({
+    const { handleSubmit, control } = useForm<FormValues>({
         resolver: zodResolver(schema),
     });
 
@@ -30,18 +30,18 @@ function BeneficiosForm(props: StepFormProps) {
         <form onSubmit={handleSubmit(onFormSubmit)}>
             <CreateContractContainer>
                 <CreateContractDivider>Beneficios Adicionales</CreateContractDivider>
-                <CreateContractTextField
+                <CreateContractTextField<FormValues>
                     name='alimentacionGs'
                     control={control}
                     label='Alimentación Gs.'
                     autoFocus
                 />
-                <CreateContractTextField
+                <CreateContractTextField<FormValues>
                     name='habilitacionGs'
                     control={control}
                     label='Habilitación Gs.'
                 />
-                <CreateContractTextField
+                <CreateContractTextField<FormValues>
                     name='uniformeGs'
                     control={control}
                     label='Uniforme Gs.'

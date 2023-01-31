@@ -5,7 +5,10 @@ import {
 import CreateContractButtonsContainer from '../../components/CreateContractButtonsContainer';
 import CreateContractContainer from '../../components/CreateContractContainer';
 import CreateContractDivider from '../../components/CreateContractDivider';
-import CreateContractTextField from '../../components/CreateContractTextField';
+import {
+    CreateContractTextField,
+    CreateContractNumberField,
+} from '../../components/CreateContractField';
 import { StepFormProps } from '../CreateContractForm';
 import { stringValidateSchema, numberValidateSchema } from '../../utils/InputSchemas';
 import { z } from 'zod';
@@ -24,11 +27,11 @@ const schema = z.object({
     observacionesMaterialesTrabajador: stringValidateSchema,
 });
 
-type FormInputs = z.infer<typeof schema>;
+type FormValues = z.infer<typeof schema>;
 
 function MaterialesForm(props: StepFormProps) {
     const { onReturnButtonClick, onFormSubmit } = props;
-    const { handleSubmit, control } = useForm<FormInputs>({
+    const { handleSubmit, control } = useForm<FormValues>({
         resolver: zodResolver(schema),
     });
 
@@ -38,24 +41,24 @@ function MaterialesForm(props: StepFormProps) {
                 <CreateContractDivider>
                     Materiales Proporcionados por el EMPLEADOR
                 </CreateContractDivider>
-                <CreateContractTextField
+                <CreateContractNumberField<FormValues>
                     type='number'
                     name='cantidadMaterialesEmpleador'
                     control={control}
                     label='Cantidad'
                     autoFocus
                 />
-                <CreateContractTextField
+                <CreateContractTextField<FormValues>
                     name='calidadMaterialesEmpleador'
                     control={control}
                     label='Calidad'
                 />
-                <CreateContractTextField
+                <CreateContractTextField<FormValues>
                     name='estadoYCondicionesDeEntregaMaterialesEmpleador'
                     control={control}
                     label='Estado y Condiciones de Entrega'
                 />
-                <CreateContractTextField
+                <CreateContractTextField<FormValues>
                     name='observacionesMaterialesEmpleador'
                     control={control}
                     label='Observaciones '
@@ -63,32 +66,32 @@ function MaterialesForm(props: StepFormProps) {
                 <CreateContractDivider>
                     Materiales Propios del TRABAJADOR
                 </CreateContractDivider>
-                <CreateContractTextField
+                <CreateContractNumberField<FormValues>
                     type='number'
                     name='cantidadMaterialesTrabajador'
                     control={control}
                     label='Cantidad'
                     gridProps={{ lg: 0.5 }}
                 />
-                <CreateContractTextField
+                <CreateContractTextField<FormValues>
                     name='calidadMaterialesTrabajador'
                     control={control}
                     label='Calidad'
                     gridProps={{ lg: 1 }}
                 />
-                <CreateContractTextField
+                <CreateContractNumberField<FormValues>
                     type='number'
                     name='comisionMaterialesTrabajador'
                     control={control}
                     label='% Comisión'
                     gridProps={{ lg: 0.5 }}
                 />
-                <CreateContractTextField
+                <CreateContractTextField<FormValues>
                     name='estadoYCondicionesDeEntregaMaterialesTrabajador'
                     control={control}
                     label='Estado y Condiciones de Entrega '
                 />
-                <CreateContractTextField
+                <CreateContractTextField<FormValues>
                     name='observacionesMaterialesTrabajador'
                     control={control}
                     label='Observaciones'
