@@ -21,11 +21,11 @@ const schema = z.object({
     montoPorHora: numberValidateSchema,
 });
 
-type FormInputs = z.infer<typeof schema>;
+type FormValues = z.infer<typeof schema>;
 
 function RemuneracionConvenidaForm(props: StepFormProps) {
     const { onFormSubmit } = props;
-    const { handleSubmit, control } = useForm<FormInputs>({
+    const { handleSubmit, control } = useForm<FormValues>({
         resolver: zodResolver(schema),
     });
 
@@ -33,42 +33,42 @@ function RemuneracionConvenidaForm(props: StepFormProps) {
         <form onSubmit={handleSubmit(onFormSubmit)}>
             <CreateContractContainer>
                 <CreateContractDivider>Fecha de Pago</CreateContractDivider>
-                <CreateContractTextField
+                <CreateContractTextField<FormValues>
                     name='periodoOrdinarioPago'
                     control={control}
                     label='Periodo Ordinario de Pago'
                     defaultValue='1'
                     autoFocus
                 />
-                <CreateContractTextField
+                <CreateContractTextField<FormValues>
                     name='fechaAsignada'
                     control={control}
                     label='Fecha Asignada'
                     defaultValue='1'
                 />
                 <CreateContractDivider>Monto del Sueldo</CreateContractDivider>
-                <CreateContractNumberField
+                <CreateContractNumberField<FormValues>
                     name='montoSueldoMensual'
                     control={control}
                     type='number'
                     label='Monto Sueldo Mensual'
                     defaultValue={1}
                 />
-                <CreateContractNumberField
+                <CreateContractNumberField<FormValues>
                     name='diasCalculoJornal'
                     control={control}
                     type='number'
                     label='Días para el Cálculo de Jornal'
                     defaultValue={1}
                 />
-                <CreateContractNumberField
+                <CreateContractNumberField<FormValues>
                     name='montoJornalDiario'
                     control={control}
                     type='number'
                     label='Monto Jornal Diario'
                     defaultValue={1}
                 />
-                <CreateContractNumberField
+                <CreateContractNumberField<FormValues>
                     name='montoPorHora'
                     control={control}
                     type='number'

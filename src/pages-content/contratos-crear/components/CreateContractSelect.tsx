@@ -8,29 +8,35 @@ import {
     FormHelperText,
 } from '@mui/material';
 import { useEffect, useRef } from 'react';
-import { useController, UseControllerProps } from 'react-hook-form';
+import { Path, PathValue, useController, UseControllerProps } from 'react-hook-form';
 import Contract from '../../../entities/Contract.entity';
 
-type CreateContractSelectProps = SelectProps &
-    UseControllerProps<Partial<Contract>> & {
+type CreateContractSelectProps<Fields extends Partial<Contract>> = SelectProps &
+    UseControllerProps<Fields> & {
         gridProps?: GridProps;
         autoFocus?: boolean;
     };
 
-function CreateContractSelect(props: CreateContractSelectProps) {
+function CreateContractSelect<Fields extends Partial<Contract>>(
+    props: CreateContractSelectProps<Fields>
+) {
     const {
         gridProps,
         children,
         name,
         control,
-        defaultValue = '',
+        defaultValue,
         autoFocus = false,
         ...restProps
     } = props;
     const {
         field,
         fieldState: { error },
-    } = useController({ name, control, defaultValue });
+    } = useController({
+        name,
+        control,
+        defaultValue: defaultValue || ('' as PathValue<Fields, Path<Fields>>),
+    });
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {

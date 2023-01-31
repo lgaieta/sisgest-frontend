@@ -10,16 +10,16 @@ import {
     FormControlLabelProps,
     FormHelperText,
 } from '@mui/material';
-import { UseControllerProps, useController } from 'react-hook-form';
+import { UseControllerProps, useController, PathValue, Path } from 'react-hook-form';
 import Contract from '../../../entities/Contract.entity';
 
-type CreateContractRadioGroupProps = RadioGroupProps &
-    UseControllerProps<Partial<Contract>> & {
+type CreateContractRadioGroupProps<Fields extends Partial<Contract>> = RadioGroupProps &
+    UseControllerProps<Fields> & {
         formControlProps?: FormControlProps;
         gridProps?: GridProps;
     };
 
-function CreateContractRadioGroup({
+function CreateContractRadioGroup<Fields extends Partial<Contract>>({
     children,
     gridProps,
     formControlProps,
@@ -27,11 +27,15 @@ function CreateContractRadioGroup({
     control,
     defaultValue,
     ...props
-}: CreateContractRadioGroupProps) {
+}: CreateContractRadioGroupProps<Fields>) {
     const {
         field,
         fieldState: { error },
-    } = useController({ name, control, defaultValue });
+    } = useController({
+        name,
+        control,
+        defaultValue: defaultValue || ('' as PathValue<Fields, Path<Fields>>),
+    });
 
     return (
         <Grid item xs={2} {...gridProps}>

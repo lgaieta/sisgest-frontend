@@ -46,7 +46,7 @@ function PlazoDelContratoForm(props: StepFormProps) {
                     />
                 </CreateContractRadioGroup>
                 <CreateContractDivider>Fechas</CreateContractDivider>
-                <CreateContractSelect
+                <CreateContractSelect<FormValues>
                     name='fechaInicioTareas'
                     control={control}
                     label='Fecha de Inicio de Tareas'
@@ -54,7 +54,7 @@ function PlazoDelContratoForm(props: StepFormProps) {
                 >
                     <MenuItem value='1'>Opcion 1</MenuItem>
                 </CreateContractSelect>
-                <CreateContractSelect
+                <CreateContractSelect<FormValues>
                     name='fechaIngresoEmpresa'
                     control={control}
                     label='Fecha de ingreso a la empresa'

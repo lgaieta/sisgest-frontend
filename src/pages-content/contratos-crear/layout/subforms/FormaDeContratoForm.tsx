@@ -35,7 +35,7 @@ function FormaDeContratoForm(props: StepFormProps) {
         <form onSubmit={handleSubmit(onFormSubmit)}>
             <CreateContractContainer>
                 <CreateContractDivider>Forma de Contrato</CreateContractDivider>
-                <CreateContractSelect
+                <CreateContractSelect<FormValues>
                     name='formaContrato'
                     control={control}
                     label='Forma de Contrato'

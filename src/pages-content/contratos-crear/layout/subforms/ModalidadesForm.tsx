@@ -32,7 +32,7 @@ function ModalidadesForm(props: StepFormProps) {
         <form onSubmit={handleSubmit(onFormSubmit)}>
             <CreateContractContainer>
                 <CreateContractDivider>Modalidades</CreateContractDivider>
-                <CreateContractSelect
+                <CreateContractSelect<FormValues>
                     name='claseTrabajoARealizar'
                     control={control}
                     label='Clase de Trabajo a Realizar'
@@ -42,7 +42,7 @@ function ModalidadesForm(props: StepFormProps) {
                 >
                     <MenuItem value='1'>Opcion 1</MenuItem>
                 </CreateContractSelect>
-                <CreateContractSelect
+                <CreateContractSelect<FormValues>
                     name='lugarPrestacion'
                     control={control}
                     label='Lugar de Prestación'
