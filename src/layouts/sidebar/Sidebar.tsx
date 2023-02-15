@@ -33,11 +33,16 @@ function Sidebar(props: SidebarProps) {
     const theme = useTheme();
 
     return (
-        <Drawer variant='permanent' sx={SidebarContainerStyles(theme, open)}>
+        <Drawer
+            role='navigation'
+            aria-label='Principal'
+            variant='permanent'
+            sx={SidebarContainerStyles(theme, open)}
+        >
             <Typography component={Link} href='/' variant='h5' sx={SidebarTitleStyles}>
                 SisGest
             </Typography>
-            <Box component='nav' sx={{ width: '100%' }}>
+            <Box sx={{ width: '100%' }}>
                 <List sx={{ width: '100%' }}>
                     <ListItem disablePadding sx={{ width: '100%' }}>
                         <ListItemButton
