@@ -13,6 +13,7 @@ import ContractListTagsWithKeys from '../../pages-content/contratos/utils/Contra
 import CloseIcon from '@mui/icons-material/Close';
 import EntityDetailsDialog from '../../layouts/entity-details-dialog/EntityDetailsDialog';
 import ContractHeader from '../../pages-content/contratos/layout/ContractHeader';
+import ReducedContractListTagsWithKeys from '../../pages-content/contratos/utils/ReducedContractListTagsWithKeys';
 
 function ContractsPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
     const {
@@ -74,7 +75,7 @@ function ContractsPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
                         {contractsList && (
                             <EntityTable
                                 idKey='id'
-                                tags={ContractListTagsWithKeys}
+                                tags={ReducedContractListTagsWithKeys}
                                 entities={contractsList}
                                 onDeleteEntity={handleDeleteContract}
                                 onRowClick={contract => {
