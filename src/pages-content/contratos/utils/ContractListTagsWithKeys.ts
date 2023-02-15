@@ -1,6 +1,7 @@
 import Contract from '../../../entities/Contract.entity';
 
 const ContractListTagsWithKeys: [string, keyof Contract][] = [
+    ['Número de Contrato', 'id'],
     ['Periodo Ordinario de Pago', 'periodoOrdinarioPago'],
     ['Fecha Asignada', 'fechaAsignada'],
     ['Monto Sueldo Mensual', 'montoSueldoMensual'],
