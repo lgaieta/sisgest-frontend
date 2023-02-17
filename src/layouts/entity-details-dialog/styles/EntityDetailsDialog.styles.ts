@@ -1,4 +1,4 @@
-const DetailsContainerStyles = {
+const DetailsContentStyles = {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(225px, 1fr))',
     gridAutoRows: 'auto',
@@ -7,7 +7,7 @@ const DetailsContainerStyles = {
 };
 
 const DetailsDialogStyles = {
-    DetailsContainerStyles,
+    DetailsContentStyles,
 };
 
 export default DetailsDialogStyles;

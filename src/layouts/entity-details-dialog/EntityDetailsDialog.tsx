@@ -3,20 +3,17 @@ import {
     DialogTitle,
     Typography,
     DialogContent,
-    Box,
     DialogActions,
     Button,
-    TextField,
 } from '@mui/material';
-import { ReactNode, useRef, useState } from 'react';
-import { Path, useForm } from 'react-hook-form';
-import DetailsDialogStyles from './EntityDetailsDialog.styles';
-
-const { DetailsContainerStyles } = DetailsDialogStyles;
+import { ReactNode } from 'react';
+import { Path } from 'react-hook-form';
+import EntityDetailsDialogContent from './components/EntityDetailsDialogContent';
+import useEntityDetailsDialog from './hooks/useEntityDetailsDialog';
 
 type BaseEntity = Record<string, unknown>;
 
-type EntityDetailsDialogProps<Entity extends BaseEntity> = {
+export type EntityDetailsDialogProps<Entity extends BaseEntity> = {
     title: (entity: Entity) => ReactNode;
     isOpen: boolean;
     entity: Entity | null;
@@ -26,6 +23,9 @@ type EntityDetailsDialogProps<Entity extends BaseEntity> = {
     onCloseButtonClick: () => void;
     onDialogClose: () => void;
     onFormSubmit: (entity: Entity) => void;
+    header?: (hookProps: ReturnType<typeof useEntityDetailsDialog<Entity>>) => ReactNode;
+    body?: (hookProps: ReturnType<typeof useEntityDetailsDialog<Entity>>) => ReactNode;
+    footer?: (hookProps: ReturnType<typeof useEntityDetailsDialog<Entity>>) => ReactNode;
 };
 
 const checkValue = (value: unknown): string | number | null =>
@@ -44,11 +44,13 @@ function EntityDetailsDialog<Entity extends BaseEntity>(
         onFormSubmit,
         entity,
         tags,
+        header,
+        body,
+        footer,
     } = props;
 
-    const { register, handleSubmit } = useForm<Entity>();
-    const [isEditable, setIsEditable] = useState<boolean>(false);
-    const editInputRef = useRef<HTMLInputElement>(null);
+    const hookProps = useEntityDetailsDialog<Entity>();
+    const { register, handleSubmit, isEditable, setIsEditable, editInputRef } = hookProps;
 
     if (!entity) return null;
 
@@ -56,58 +58,57 @@ function EntityDetailsDialog<Entity extends BaseEntity>(
         <Dialog open={isOpen} onClose={onDialogClose} fullWidth maxWidth='md'>
             <form onSubmit={handleSubmit(data => onFormSubmit({ ...entity, ...data }))}>
                 <DialogTitle>
-                    <Typography variant='h4' sx={{ fontWeight: '700' }}>
-                        {checkValue(title(entity))}
-                    </Typography>
+                    {header ? (
+                        header(hookProps)
+                    ) : (
+                        <Typography variant='h4' sx={{ fontWeight: '700' }}>
+                            {checkValue(title(entity))}
+                        </Typography>
+                    )}
                 </DialogTitle>
                 <DialogContent dividers>
-                    <Box sx={DetailsContainerStyles}>
-                        {tags.map(([tag, key]) => (
-                            <Box key={tag}>
-                                <Typography
-                                    variant='subtitle1'
-                                    sx={{ fontWeight: '700' }}
-                                >
-                                    {tag}
-                                </Typography>
-                                {isEditable ? (
-                                    <TextField
-                                        type='text'
-                                        size='small'
-                                        defaultValue={entity[key]}
-                                        hiddenLabel
-                                        {...register(key)}
-                                    />
-                                ) : (
-                                    <Typography variant='body1'>
-                                        {checkValue(entity[key])}
-                                    </Typography>
-                                )}
-                            </Box>
-                        ))}
-                    </Box>
+                    {body ? (
+                        body(hookProps)
+                    ) : (
+                        <EntityDetailsDialogContent<Entity>
+                            tags={tags}
+                            isEditable={isEditable}
+                            entity={entity}
+                            register={register}
+                        />
+                    )}
                 </DialogContent>
                 <DialogActions>
-                    <Button
-                        variant='outlined'
-                        onClick={() => {
-                            if (onEditButtonClick) onEditButtonClick();
-                            if (isEditable && editInputRef.current)
-                                editInputRef?.current.click();
-                            setIsEditable(prev => !prev);
-                        }}
-                    >
-                        {isEditable ? 'Guardar' : 'Editar'}
-                    </Button>
-                    <input type='submit' style={{ display: 'none' }} ref={editInputRef} />
-                    <Button
-                        variant='outlined'
-                        color='error'
-                        onClick={() => onDeleteButtonClick(entity)}
-                    >
-                        Borrar
-                    </Button>
-                    <Button onClick={onCloseButtonClick}>Cerrar</Button>
+                    {footer ? (
+                        footer(hookProps)
+                    ) : (
+                        <>
+                            <Button
+                                variant='outlined'
+                                onClick={() => {
+                                    if (onEditButtonClick) onEditButtonClick();
+                                    if (isEditable && editInputRef.current)
+                                        editInputRef?.current.click();
+                                    setIsEditable(prev => !prev);
+                                }}
+                            >
+                                {isEditable ? 'Guardar' : 'Editar'}
+                            </Button>
+                            <input
+                                type='submit'
+                                style={{ display: 'none' }}
+                                ref={editInputRef}
+                            />
+                            <Button
+                                variant='outlined'
+                                color='error'
+                                onClick={() => onDeleteButtonClick(entity)}
+                            >
+                                Borrar
+                            </Button>
+                            <Button onClick={onCloseButtonClick}>Cerrar</Button>
+                        </>
+                    )}
                 </DialogActions>
             </form>
         </Dialog>
