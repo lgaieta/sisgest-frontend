@@ -9,9 +9,9 @@ import EntityTable from '../../layouts/entity-table/EntityTable';
 import Main from '../../layouts/main/Main';
 import Sidebar, { SidebarProps } from '../../layouts/sidebar/Sidebar';
 import useContract from '../../pages-content/contratos/hooks/useContract';
-import ContractListTagsWithKeys from '../../pages-content/contratos/utils/ContractListTagsWithKeys';
+import { ContractListTagsWithKeysAndTabs } from '../../pages-content/contratos/utils/ContractListTagsWithKeys';
 import CloseIcon from '@mui/icons-material/Close';
-import EntityDetailsDialog from '../../layouts/entity-details-dialog/EntityDetailsDialog';
+import EntityDetailsDialogWithTabs from '../../layouts/entity-details-dialog/EntityDetailsDialogWithTabs';
 import ContractHeader from '../../pages-content/contratos/layout/ContractHeader';
 import ReducedContractListTagsWithKeys from '../../pages-content/contratos/utils/ReducedContractListTagsWithKeys';
 
@@ -89,10 +89,10 @@ function ContractsPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
             </Content>
             {isContractDetails && (
                 <Suspense>
-                    <EntityDetailsDialog<Contract>
+                    <EntityDetailsDialogWithTabs<Contract>
                         title={contract => contract.id}
                         isOpen={isContractDetails}
-                        tags={ContractListTagsWithKeys}
+                        tags={ContractListTagsWithKeysAndTabs}
                         entity={selectedContract}
                         onEditButtonClick={() => null}
                         onDeleteButtonClick={handleDeleteContract}
