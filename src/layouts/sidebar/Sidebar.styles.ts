@@ -1,9 +1,6 @@
 import { SxProps, Theme } from '@mui/material';
 
-export const SidebarContainerStyles: (theme: Theme, open: boolean) => SxProps<Theme> = (
-    theme,
-    open
-) => ({
+export const SidebarContainerStyles: (open: boolean) => SxProps<Theme> = open => ({
     position: { xs: 'fixed', md: 'sticky' },
     top: 0,
     width: '100%',
@@ -14,10 +11,11 @@ export const SidebarContainerStyles: (theme: Theme, open: boolean) => SxProps<Th
     '& .MuiDrawer-paper': {
         position: 'relative',
         boxSizing: 'border-box',
+        alignItems: 'center',
         paddingTop: { xs: open ? '1.5rem' : 0, md: '1.5rem' },
         paddingInline: '1rem',
-        color: theme.palette.primary.contrastText,
-        bgcolor: theme.palette.primary.main,
+        color: 'text.primaryAlwaysDark',
+        bgcolor: 'background.primaryAlwaysDark',
     },
 });
 
@@ -28,6 +26,7 @@ export const SidebarTitleStyles: SxProps<Theme> = {
     color: 'inherit',
     textDecoration: 'none',
     marginBottom: '1.5rem',
+    fontSize: { xs: '2rem', md: '1.5rem' },
 };
 
 export const SidebarNavigationItemButtonStyles = {

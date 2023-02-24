@@ -19,7 +19,6 @@ import {
     SidebarNavigationItemButtonStyles,
     SidebarTitleStyles,
 } from './Sidebar.styles';
-import { useTheme } from '@mui/material/styles';
 
 export type SidebarProps = {
     client: string | null;
@@ -30,14 +29,13 @@ export type SidebarProps = {
 
 function Sidebar(props: SidebarProps) {
     const { client, setClient, open, setOpen } = props;
-    const theme = useTheme();
 
     return (
         <Drawer
             role='navigation'
             aria-label='Principal'
             variant='permanent'
-            sx={SidebarContainerStyles(theme, open)}
+            sx={SidebarContainerStyles(open)}
         >
             <Typography component={Link} href='/' variant='h5' sx={SidebarTitleStyles}>
                 SisGest
@@ -54,13 +52,14 @@ function Sidebar(props: SidebarProps) {
                             }}
                         >
                             <ListItemIcon>
-                                <PeopleIcon
-                                    sx={{ color: theme.palette.primary.contrastText }}
-                                >
+                                <PeopleIcon sx={{ color: 'text.primaryAlwaysDark' }}>
                                     people_filled
                                 </PeopleIcon>
                             </ListItemIcon>
-                            <ListItemText primary='Empleados' />
+                            <ListItemText
+                                color='text.primaryAlwaysDark'
+                                primary='Empleados'
+                            />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
@@ -70,9 +69,12 @@ function Sidebar(props: SidebarProps) {
                             sx={SidebarNavigationItemButtonStyles}
                         >
                             <ListItemIcon>
-                                <ArticleIcon sx={{ color: 'primary.contrastText' }} />
+                                <ArticleIcon sx={{ color: 'text.primaryAlwaysDark' }} />
                             </ListItemIcon>
-                            <ListItemText primary='Contratos' />
+                            <ListItemText
+                                color='text.primaryAlwaysDark'
+                                primary='Contratos'
+                            />
                         </ListItemButton>
                     </ListItem>
                 </List>
@@ -84,9 +86,11 @@ function Sidebar(props: SidebarProps) {
                     flexDirection: 'column',
                     alignItems: 'center',
                     width: '100%',
+                    maxWidth: 'fit-content',
                     marginBlock: 'auto 1.5rem',
-                    bgcolor: theme.palette.primary.light,
-                    borderColor: theme.palette.primary.light,
+                    borderRadius: '1rem',
+                    padding: '0.5rem',
+                    bgcolor: 'background.secondaryAlwaysDark',
                 }}
             >
                 <Typography
@@ -96,7 +100,7 @@ function Sidebar(props: SidebarProps) {
                         marginInline: 'auto',
                         marginBlock: '.5rem',
                         textAlign: 'center',
-                        color: theme.palette.primary.contrastText,
+                        color: 'text.primaryAlwaysDark',
                     }}
                     component='p'
                     variant='subtitle1'
@@ -104,12 +108,17 @@ function Sidebar(props: SidebarProps) {
                     {client}
                 </Typography>
                 <Button
-                    color='secondary'
+                    variant='contained'
                     component={Link}
                     href='/seleccionar-cliente'
                     onClick={() => setClient('null')}
+                    disableElevation
                     sx={{
-                        color: theme.palette.primary.contrastText,
+                        bgcolor: 'background.primaryAlwaysDark',
+                        textAlign: 'center',
+                        '&:hover': {
+                            bgcolor: '#212121',
+                        },
                     }}
                 >
                     Elegir otro cliente
@@ -121,7 +130,7 @@ function Sidebar(props: SidebarProps) {
                 sx={{
                     display: { xs: 'inherit', md: 'none' },
                     width: '100%',
-                    color: theme.palette.primary.contrastText,
+                    color: 'text.primaryAlwaysDark',
                     padding: '1rem',
                     marginBottom: '1.5rem',
                 }}
