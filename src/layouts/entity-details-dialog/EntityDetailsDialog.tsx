@@ -61,7 +61,7 @@ function EntityDetailsDialog<Entity extends BaseEntity>(
             onClose={onDialogClose}
             fullWidth
             maxWidth='md'
-            sx={{ '& .MuiDialog-paper': { height: '80vh' } }}
+            sx={{ '& .MuiDialog-paper': { height: '27rem' } }}
         >
             <Box
                 style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
