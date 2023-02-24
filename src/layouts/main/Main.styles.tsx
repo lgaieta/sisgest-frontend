@@ -9,4 +9,6 @@ export const MainContainerStyles: SxProps<Theme> = {
         md: "'sidebar header' 'sidebar content'",
     },
     minHeight: '100vh',
+    color: 'text.primary',
+    bgcolor: 'background.primary',
 };
