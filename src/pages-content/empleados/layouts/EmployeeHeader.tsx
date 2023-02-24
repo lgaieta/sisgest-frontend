@@ -14,7 +14,7 @@ const EmployeeHeader = ({
         <Box sx={{ display: { xs: 'none', sm: 'flex' }, gap: '1rem' }}>
             <Tooltip title='Recargar empleados'>
                 <IconButton onClick={() => onReplayIconClick()}>
-                    <ReplayIcon sx={{ color: 'secondary.contrastText' }} />
+                    <ReplayIcon sx={{ color: 'text.primary' }} />
                 </IconButton>
             </Tooltip>
             <Button
@@ -32,7 +32,7 @@ const EmployeeHeader = ({
                 display: { xs: 'inherit', sm: 'none' },
                 bottom: '0',
                 top: 'auto',
-                backgroundColor: 'background.default',
+                backgroundColor: 'background.primary',
                 color: 'black',
             }}
         >
