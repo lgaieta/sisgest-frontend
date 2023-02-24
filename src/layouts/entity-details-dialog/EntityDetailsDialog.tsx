@@ -5,6 +5,7 @@ import {
     DialogContent,
     DialogActions,
     Button,
+    Box,
 } from '@mui/material';
 import { ReactNode } from 'react';
 import { Path } from 'react-hook-form';
@@ -55,8 +56,18 @@ function EntityDetailsDialog<Entity extends BaseEntity>(
     if (!entity) return null;
 
     return (
-        <Dialog open={isOpen} onClose={onDialogClose} fullWidth maxWidth='md'>
-            <form onSubmit={handleSubmit(data => onFormSubmit({ ...entity, ...data }))}>
+        <Dialog
+            open={isOpen}
+            onClose={onDialogClose}
+            fullWidth
+            maxWidth='md'
+            sx={{ '& .MuiDialog-paper': { height: '80vh' } }}
+        >
+            <Box
+                style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                component='form'
+                onSubmit={handleSubmit(data => onFormSubmit({ ...entity, ...data }))}
+            >
                 <DialogTitle>
                     {header ? (
                         header(hookProps)
@@ -66,7 +77,7 @@ function EntityDetailsDialog<Entity extends BaseEntity>(
                         </Typography>
                     )}
                 </DialogTitle>
-                <DialogContent dividers>
+                <DialogContent dividers sx={{ height: '100%' }}>
                     {body ? (
                         body(hookProps)
                     ) : (
@@ -110,7 +121,7 @@ function EntityDetailsDialog<Entity extends BaseEntity>(
                         </>
                     )}
                 </DialogActions>
-            </form>
+            </Box>
         </Dialog>
     );
 }

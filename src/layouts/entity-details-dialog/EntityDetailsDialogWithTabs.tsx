@@ -34,7 +34,11 @@ const EntityDetailsDialogWithTabs = <Entity extends Record<string, unknown>>(
                         scrollButtons='auto'
                         onChange={handleChange}
                         value={indexTab}
-                        sx={{ bgcolor: blueGrey[50], borderRadius: '.5rem', mb: '1rem' }}
+                        sx={{
+                            bgcolor: 'background.secondary',
+                            borderRadius: '.5rem',
+                            mb: '1rem',
+                        }}
                     >
                         {Object.entries(tags).map(([tab]) => (
                             <Tab key={tab} label={tab} />
