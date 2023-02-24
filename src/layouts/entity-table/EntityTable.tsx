@@ -34,14 +34,25 @@ function EntityTable<
     const { entities, onDeleteEntity, onRowClick, tags, idKey } = props;
 
     return (
-        <TableContainer component={Paper} variant='outlined'>
+        <TableContainer
+            component={Paper}
+            variant='outlined'
+            sx={{ borderRadius: '1rem' }}
+        >
             <Table>
                 <TableHead>
                     <TableRow>
                         {tags.map(([tag]) => (
-                            <TableCell key={tag}>{tag}</TableCell>
+                            <TableCell
+                                key={tag}
+                                sx={{ paddingBlock: '.75rem', bgcolor: '#fafafa' }}
+                            >
+                                {tag}
+                            </TableCell>
                         ))}
-                        <TableCell>Acciones</TableCell>
+                        <TableCell sx={{ paddingBlock: '.75rem', bgcolor: '#fafafa' }}>
+                            Acciones
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
