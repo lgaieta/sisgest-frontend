@@ -9,4 +9,5 @@ export const ContentStyles: SxProps<Theme> = {
     gridArea: 'content',
     padding: '1.5rem',
     boxSizing: 'border-box',
+    overflowY: 'auto',
 };
