@@ -29,7 +29,7 @@ function CreateContract({ sidebarProps }: { sidebarProps: SidebarProps }) {
                     right: '1rem',
                 }}
             />
-            <Content>
+            <Content sx={{ maxHeight: '100vh' }}>
                 <Typography
                     variant='h4'
                     component='h1'
