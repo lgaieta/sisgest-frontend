@@ -1,4 +1,4 @@
-import { IconButton } from '@mui/material';
+import { Button, IconButton, Toolbar, Tooltip } from '@mui/material';
 import Main from '../../layouts/main/Main';
 import { lazy, Suspense } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
@@ -6,12 +6,14 @@ import EmployeeListTagsWithKeys from '../../pages-content/empleados/utils/Employ
 import Head from 'next/head';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import useEmployee from '../../pages-content/empleados/hooks/useEmployee';
-import EmployeeHeader from '../../pages-content/empleados/layouts/EmployeeHeader';
 import Sidebar, { SidebarProps } from '../../layouts/sidebar/Sidebar';
 import Content from '../../layouts/content/Content';
 import { EntityTableType } from '../../layouts/entity-table/EntityTable';
 import Employee from '../../entities/Employee.entity';
 import type { EntityDetailsDialogType } from '../../layouts/entity-details-dialog/EntityDetailsDialog';
+import Header from '../../layouts/header/Header';
+import Link from 'next/link';
+import ReplayIcon from '@mui/icons-material/Replay';
 
 const EntityTable = lazy<EntityTableType<Employee, 'id'>>(
     () => import('../../layouts/entity-table/EntityTable')
@@ -64,9 +66,9 @@ function EmployeesPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
             <Head>
                 <title>Empleados - SisGest</title>
             </Head>
-            <EmployeeHeader
+            <Header
+                title='Empleados'
                 onMenuIconClick={() => sidebarProps.setOpen(true)}
-                onReplayIconClick={refetch}
             />
             <Sidebar {...sidebarProps} />
             <Content>
@@ -90,6 +92,35 @@ function EmployeesPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
                                     setSelectedEmployee(employee);
                                     setIsEmployeeDetails(true);
                                 }}
+                                footer={
+                                    <Toolbar
+                                        sx={{
+                                            '&.MuiToolbar-root': {
+                                                paddingLeft: '1rem',
+                                                paddingRight: '1rem',
+                                                gap: '1rem',
+                                                borderTop: '1px solid',
+                                                borderColor: 'border.primary',
+                                            },
+                                        }}
+                                    >
+                                        <Button
+                                            variant='contained'
+                                            disableElevation
+                                            component={Link}
+                                            href='/empleados/crear'
+                                        >
+                                            Crear empleado
+                                        </Button>
+                                        <Tooltip title='Recargar contratos'>
+                                            <IconButton onClick={() => refetch()}>
+                                                <ReplayIcon
+                                                    sx={{ color: 'text.primary' }}
+                                                />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Toolbar>
+                                }
                             />
                         )}
                     </Suspense>

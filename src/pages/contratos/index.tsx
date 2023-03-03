@@ -1,4 +1,4 @@
-import { Snackbar, IconButton } from '@mui/material';
+import { Snackbar, IconButton, Toolbar, Button, Tooltip } from '@mui/material';
 import Head from 'next/head';
 import { Suspense } from 'react';
 import ErrorMessage from '../../components/ErrorMessage';
@@ -12,8 +12,10 @@ import useContract from '../../pages-content/contratos/hooks/useContract';
 import { ContractListTagsWithKeysAndTabs } from '../../pages-content/contratos/utils/ContractListTagsWithKeys';
 import CloseIcon from '@mui/icons-material/Close';
 import EntityDetailsDialogWithTabs from '../../layouts/entity-details-dialog/EntityDetailsDialogWithTabs';
-import ContractHeader from '../../pages-content/contratos/layout/ContractHeader';
 import ReducedContractListTagsWithKeys from '../../pages-content/contratos/utils/ReducedContractListTagsWithKeys';
+import Header from '../../layouts/header/Header';
+import Link from 'next/link';
+import ReplayIcon from '@mui/icons-material/Replay';
 
 function ContractsPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
     const {
@@ -56,9 +58,9 @@ function ContractsPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
             <Head>
                 <title>Contratos - SisGest</title>
             </Head>
-            <ContractHeader
+            <Header
+                title='Contratos'
                 onMenuIconClick={() => sidebarProps.setOpen(true)}
-                onReplayIconClick={refetch}
             />
             <Sidebar {...sidebarProps} />
             <Content>
@@ -82,6 +84,35 @@ function ContractsPage({ sidebarProps }: { sidebarProps: SidebarProps }) {
                                     setIsContractDetails(true);
                                     setSelectedContract(contract);
                                 }}
+                                footer={
+                                    <Toolbar
+                                        sx={{
+                                            '&.MuiToolbar-root': {
+                                                paddingLeft: '1rem',
+                                                paddingRight: '1rem',
+                                                gap: '1rem',
+                                                borderTop: '1px solid',
+                                                borderColor: 'border.primary',
+                                            },
+                                        }}
+                                    >
+                                        <Button
+                                            variant='contained'
+                                            disableElevation
+                                            component={Link}
+                                            href='/contratos/crear'
+                                        >
+                                            Crear contrato
+                                        </Button>
+                                        <Tooltip title='Recargar contratos'>
+                                            <IconButton onClick={() => refetch()}>
+                                                <ReplayIcon
+                                                    sx={{ color: 'text.primary' }}
+                                                />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Toolbar>
+                                }
                             />
                         )}
                     </Suspense>

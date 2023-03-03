@@ -6,4 +6,5 @@ export const HeaderContainerStyles: SxProps<Theme> = {
     borderTop: 'none',
     bgcolor: 'inherit',
     color: 'inherit',
+    height: '4rem',
 };

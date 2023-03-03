@@ -9,6 +9,7 @@ import {
     Tooltip,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { ReactNode } from 'react';
 
 type BaseEntity<PrimaryKey extends string | number | symbol> = Record<
     PrimaryKey,
@@ -25,65 +26,82 @@ type EntityTableProps<
     onRowClick: (entity: Entity) => void;
     /** Name of primary key property */
     idKey: IdKey;
+    footer?: ReactNode;
 };
 
 function EntityTable<
     Entity extends BaseEntity<IdKey>,
     IdKey extends string | number | symbol
 >(props: EntityTableProps<Entity, IdKey>) {
-    const { entities, onDeleteEntity, onRowClick, tags, idKey } = props;
+    const { entities, onDeleteEntity, onRowClick, tags, idKey, footer } = props;
 
     return (
-        <TableContainer
-            component={Paper}
+        <Paper
             variant='outlined'
-            sx={{ borderRadius: '1rem' }}
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                borderRadius: '1rem 0 1rem 1rem',
+                height: '100%',
+            }}
         >
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        {tags.map(([tag]) => (
-                            <TableCell
-                                key={tag}
-                                sx={{ paddingBlock: '.75rem', bgcolor: '#fafafa' }}
-                            >
-                                {tag}
-                            </TableCell>
-                        ))}
-                        <TableCell sx={{ paddingBlock: '.75rem', bgcolor: '#fafafa' }}>
-                            Acciones
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {entities.map(entity => (
-                        <TableRow
-                            key={entity[idKey]}
-                            onClick={() => onRowClick(entity)}
-                            sx={{
-                                '&:hover': { bgcolor: '#F3F3F3' },
-                            }}
-                        >
-                            {tags.map(([tag, key]) => (
-                                <TableCell key={tag + entity[idKey]}>
-                                    {entity[key]}
+            <TableContainer
+                sx={{
+                    borderRadius: footer ? '1rem 0 0 0' : '1rem',
+                    height: '100%',
+                    overflowY: 'scroll',
+                }}
+            >
+                <Table stickyHeader>
+                    <TableHead>
+                        <TableRow>
+                            {tags.map(([tag]) => (
+                                <TableCell
+                                    key={tag}
+                                    sx={{ paddingBlock: '.75rem', bgcolor: '#fafafa' }}
+                                >
+                                    {tag}
                                 </TableCell>
                             ))}
-                            <TableCell>
-                                <Tooltip title='Borrar'>
-                                    <DeleteIcon
-                                        onClick={e => {
-                                            e.stopPropagation();
-                                            onDeleteEntity(entity);
-                                        }}
-                                    />
-                                </Tooltip>
+                            <TableCell
+                                sx={{ paddingBlock: '.75rem', bgcolor: '#fafafa' }}
+                            >
+                                Acciones
                             </TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {entities.map(entity => (
+                            <TableRow
+                                key={entity[idKey]}
+                                onClick={() => onRowClick(entity)}
+                                sx={{
+                                    '&:hover': { bgcolor: '#F3F3F3' },
+                                    '&:last-child': { borderBottomColor: 'transparent' },
+                                }}
+                            >
+                                {tags.map(([tag, key]) => (
+                                    <TableCell key={tag + entity[idKey]}>
+                                        {entity[key]}
+                                    </TableCell>
+                                ))}
+                                <TableCell>
+                                    <Tooltip title='Borrar'>
+                                        <DeleteIcon
+                                            onClick={e => {
+                                                e.stopPropagation();
+                                                onDeleteEntity(entity);
+                                            }}
+                                        />
+                                    </Tooltip>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            {footer}
+        </Paper>
     );
 }
 
