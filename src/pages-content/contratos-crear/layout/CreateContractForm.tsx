@@ -40,11 +40,11 @@ function CreateContractForm() {
     const StepForm = steps[activeStep][1];
 
     return (
-        <Stack direction='row' gap={2} pt={2}>
+        <Stack direction='row' gap={2} pt={2} sx={{ position: 'relative' }}>
             <Stepper
                 activeStep={activeStep}
                 orientation='vertical'
-                sx={{ height: 'fit-content' }}
+                sx={{ height: 'fit-content', position: 'sticky', top: 0, left: 0 }}
             >
                 {steps.map(([step]) => (
                     <Step key={step}>
