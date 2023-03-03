@@ -23,7 +23,7 @@ function SelectClient({ sidebarProps }: { sidebarProps: SidebarProps }) {
                 }}
                 hideMenuIcon
             />
-            <Content>
+            <Content sx={{ maxWidth: '100vw' }}>
                 <SelectClientTable
                     clients={ClientExamples}
                     onRowClick={client => {
