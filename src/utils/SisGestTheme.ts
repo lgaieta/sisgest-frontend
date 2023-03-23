@@ -77,6 +77,13 @@ const SisGestTheme = responsiveFontSizes(
                     },
                 },
             },
+            MuiOutlinedInput: {
+                styleOverrides: {
+                    root: {
+                        borderRadius: '1rem',
+                    },
+                },
+            },
         },
     })
 );
