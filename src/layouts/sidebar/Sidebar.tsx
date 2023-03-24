@@ -115,6 +115,7 @@ function Sidebar(props: SidebarProps) {
                     disableElevation
                     sx={{
                         bgcolor: 'background.primaryAlwaysDark',
+                        color: 'text.primaryAlwaysDark',
                         textAlign: 'center',
                         '&:hover': {
                             bgcolor: '#212121',

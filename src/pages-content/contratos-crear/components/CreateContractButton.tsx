@@ -19,7 +19,7 @@ export const CreateContractReturnButton = ({
     children,
     ...props
 }: CreateContractButtonProps) => (
-    <CreateContractButton variant='text' {...props}>
+    <CreateContractButton variant='text' sx={{ color: 'text.primary' }} {...props}>
         {children}
     </CreateContractButton>
 );

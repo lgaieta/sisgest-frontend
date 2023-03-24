@@ -1,5 +1,5 @@
 import { PaletteMode } from '@mui/material';
-import { grey, indigo } from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 import { PaletteOptions } from '@mui/material/styles';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
@@ -41,14 +41,15 @@ const getPalette = (mode: PaletteMode): PaletteOptions => ({
               },
           }),
     primary: {
-        main: indigo[600],
-        dark: indigo[800],
-        contrastText: '#FFFFFF',
+        main: '#f57f17',
+        dark: '#ff6f00',
+        contrastText: '#ffffff',
     },
     accent: {
-        primary: indigo[600],
-        primaryDark: indigo[800],
-        contrastText: '#FFFFFF',
+        primary: '#F5D50D',
+        primaryDark: '#EACC0D',
+        primaryLight: '#FCDB0D',
+        contrastText: grey[900],
     },
 });
 
@@ -66,6 +67,14 @@ const SisGestTheme = responsiveFontSizes(
                         boxShadow: 'none',
                         '&:hover': {
                             boxShadow: 'none',
+                        },
+                    },
+                    containedPrimary: {
+                        color: getPalette(mode).accent.contrastText,
+                        backgroundColor: getPalette(mode).accent.primary,
+                        '&:hover': {
+                            color: getPalette(mode).accent.contrastText,
+                            backgroundColor: getPalette(mode).accent.primaryLight,
                         },
                     },
                 },

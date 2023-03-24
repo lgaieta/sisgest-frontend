@@ -20,6 +20,7 @@ declare module '@mui/material/styles' {
         accent: {
             primary: string;
             primaryDark: string;
+            primaryLight: string;
             contrastText: string;
         };
     }
@@ -31,6 +32,7 @@ declare module '@mui/material/styles' {
         accent: {
             primary: string;
             primaryDark: string;
+            primaryLight: string;
             contrastText: string;
         };
     }
