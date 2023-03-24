@@ -1,5 +1,5 @@
 import { PaletteMode } from '@mui/material';
-import { grey } from '@mui/material/colors';
+import { deepPurple, grey } from '@mui/material/colors';
 import { PaletteOptions } from '@mui/material/styles';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
@@ -41,9 +41,7 @@ const getPalette = (mode: PaletteMode): PaletteOptions => ({
               },
           }),
     primary: {
-        main: '#f57f17',
-        dark: '#ff6f00',
-        contrastText: '#ffffff',
+        main: deepPurple[700],
     },
     accent: {
         primary: '#F5D50D',
