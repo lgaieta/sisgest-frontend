@@ -5,7 +5,7 @@ function LoginForm() {
         <Stack
             component='form'
             sx={{
-                gap: 2,
+                gap: 3,
                 px: 6,
                 justifyContent: 'center',
                 bgcolor: 'background.secondary',
