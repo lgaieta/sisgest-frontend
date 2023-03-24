@@ -5,6 +5,8 @@ import LoginData from '../utils/LoginData';
 import { zodResolver } from '@hookform/resolvers/zod';
 import LoginValidationSchema from '../utils/LoginValidationSchema';
 import LoginFormStyles from './LoginFormStyles';
+import useLogin from '../hooks/useLogin';
+import { useRouter } from 'next/router';
 
 function LoginForm() {
     const { handleSubmit, control } = useForm<LoginData>({
@@ -12,9 +14,11 @@ function LoginForm() {
         resolver: zodResolver(LoginValidationSchema),
     });
 
-    const handleOnFormSubmit: SubmitHandler<LoginData> = data => {
-        console.log(data);
-    };
+    const router = useRouter();
+    const { mutate: login, isError } = useLogin();
+
+    const handleOnFormSubmit: SubmitHandler<LoginData> = data =>
+        login(data, { onSuccess: () => router.push('/seleccionar-cliente') });
 
     return (
         <Stack
@@ -35,6 +39,14 @@ function LoginForm() {
             >
                 Ingresar
             </Button>
+            {isError && (
+                <Typography
+                    variant='body1'
+                    sx={{ fontWeight: 500, color: 'error.main', textAlign: 'center' }}
+                >
+                    Ha ocurrido un error, por favor intente de nuevo.
+                </Typography>
+            )}
         </Stack>
     );
 }
