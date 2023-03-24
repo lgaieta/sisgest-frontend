@@ -12,7 +12,7 @@ function LoginPage() {
             sx={{
                 display: 'grid',
                 gridTemplateColumns: '1fr',
-                gridTemplateRows: '1fr 2fr',
+                gridTemplateRows: '1fr 1fr',
                 minHeight: '100vh',
                 [theme.breakpoints.up('md')]: {
                     gridTemplateColumns: '2fr 1fr',
@@ -59,6 +59,7 @@ function LoginPage() {
                 </Typography>
             </Stack>
             <Stack
+                component='form'
                 sx={{
                     gap: 2,
                     px: 6,
