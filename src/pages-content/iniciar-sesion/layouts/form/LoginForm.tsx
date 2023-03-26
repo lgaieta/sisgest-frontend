@@ -1,11 +1,11 @@
 import { Stack, Typography, Button } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import LoginField from '../components/LoginField';
-import LoginData from '../utils/LoginData';
+import LoginField from '../../components/LoginField';
+import LoginData from '../../utils/LoginData';
 import { zodResolver } from '@hookform/resolvers/zod';
-import LoginValidationSchema from '../utils/LoginValidationSchema';
-import LoginFormStyles from './LoginFormStyles';
-import useLogin from '../hooks/useLogin';
+import LoginValidationSchema from '../../utils/LoginValidationSchema';
+import LoginFormStyles from './LoginForm.styles';
+import useLogin from '../../hooks/useLogin';
 import { useRouter } from 'next/router';
 
 function LoginForm() {

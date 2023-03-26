@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/system';
 import Head from 'next/head';
 import Link from 'next/link';
-import LoginForm from '../pages-content/iniciar-sesion/layouts/LoginForm';
+import LoginForm from '../pages-content/iniciar-sesion/layouts/form/LoginForm';
 
 function LoginPage() {
     const theme = useTheme();
