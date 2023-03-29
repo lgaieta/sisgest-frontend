@@ -7,8 +7,9 @@ import LoginValidationSchema from '../../utils/LoginValidationSchema';
 import LoginFormStyles from './LoginForm.styles';
 import useLogin from '../../hooks/useLogin';
 import { useRouter } from 'next/router';
+import { SetStateAction, Dispatch } from 'react';
 
-function LoginForm() {
+function LoginForm(props: { setIsLogged: Dispatch<SetStateAction<string>> }) {
     const { handleSubmit, control } = useForm<LoginData>({
         defaultValues: { user: '', password: '' },
         resolver: zodResolver(LoginValidationSchema),
@@ -18,7 +19,12 @@ function LoginForm() {
     const { mutate: login, isError } = useLogin();
 
     const handleOnFormSubmit: SubmitHandler<LoginData> = data =>
-        login(data, { onSuccess: () => router.push('/seleccionar-cliente') });
+        login(data, {
+            onSuccess: () => {
+                props.setIsLogged('true');
+                router.push('/seleccionar-cliente');
+            },
+        });
 
     return (
         <Stack

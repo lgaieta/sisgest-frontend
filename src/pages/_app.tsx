@@ -5,11 +5,13 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import SisGestTheme from '../utils/SisGestTheme';
 import useSidebar from '../hooks/useSidebar';
 import { ThemeProvider } from '@mui/material/styles';
+import useLoginRedirect from '../hooks/useLoginRedirect';
 
 const queryClient = new QueryClient();
 
 const CustomApp = ({ Component, pageProps }: AppProps) => {
     const sidebarProps = useSidebar();
+    const [, setIsLogged] = useLoginRedirect();
 
     return (
         <>
@@ -23,7 +25,11 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
                 </Head>
                 <ThemeProvider theme={SisGestTheme}>
                     <CssBaseline />
-                    <Component sidebarProps={sidebarProps} {...pageProps} />
+                    <Component
+                        sidebarProps={sidebarProps}
+                        {...pageProps}
+                        setIsLogged={setIsLogged}
+                    />
                 </ThemeProvider>
             </QueryClientProvider>
         </>

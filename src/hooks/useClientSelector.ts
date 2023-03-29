@@ -15,7 +15,8 @@ const useClientSelector = () => {
         if (
             (!localStorage.getItem('client') ||
                 localStorage.getItem('client') === 'null') &&
-            router.pathname !== '/seleccionar-cliente'
+            router.pathname !== '/seleccionar-cliente' &&
+            router.pathname !== '/iniciar-sesion'
         )
             router.push('/seleccionar-cliente');
     });
