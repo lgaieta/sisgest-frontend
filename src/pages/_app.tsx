@@ -11,7 +11,7 @@ const queryClient = new QueryClient();
 
 const CustomApp = ({ Component, pageProps }: AppProps) => {
     const sidebarProps = useSidebar();
-    const [, setIsLogged] = useLoginRedirect();
+    const [isLogged, setIsLogged] = useLoginRedirect();
 
     return (
         <>
@@ -29,6 +29,7 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
                         sidebarProps={sidebarProps}
                         {...pageProps}
                         setIsLogged={setIsLogged}
+                        isLogged={isLogged}
                     />
                 </ThemeProvider>
             </QueryClientProvider>

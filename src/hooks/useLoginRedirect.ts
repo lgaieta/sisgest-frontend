@@ -13,7 +13,6 @@ const useLoginRedirect = () => {
     const router = useRouter();
 
     useEffect(() => {
-        console.log(isLogged);
         if (
             !localStorage.getItem('is-logged') &&
             isLogged === 'false' &&
